@@ -3,7 +3,7 @@ import { Studio } from "../components/page/StudioPage"
 import { prisma } from "../lib/prisma";
 
 const getImages = async () => {
-  const posts = await prisma.images.findMany().then((res) => res.map((item) => item.url));
+  const posts = await prisma.images.findMany().then((res: any) => res.map((item: any) => item.url));
   return posts;
 }
 async function page() {
