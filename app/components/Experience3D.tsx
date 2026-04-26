@@ -1,15 +1,53 @@
-// BlueprintBackground.jsx
+// BlueprintBackground.tsx
 // Architectural 3D wireframe background with:
 //   • Auto-play intro: ground floor & 360 neighborhood assembles on load (2.6s)
 //   • Scroll: 3 more floors stack up, roof drops at 95%
 //   • Animated city life: 8 driving cars & walking pedestrians on all 4 sides
 //
-// npm install @react-three/fiber @react-three/drei three
+// npm install @react-three/fiber @react-three/drei three @types/three
 
-import { useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useEffect, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { PerspectiveCamera, Line } from '@react-three/drei';
 import * as THREE from 'three';
+
+// ─── TYPES & INTERFACES ───────────────────────────────────────────────────
+
+type Vector3Tuple = [number, number, number];
+type AnimationDirection = 'top' | 'left' | 'right' | 'front' | 'back' | 'grow';
+type Axis = 'x' | 'z';
+type FacingDirection = '-z' | '+z' | '-x' | '+x';
+
+export interface PieceData {
+  id: string;
+  pos: Vector3Tuple;
+  scale: Vector3Tuple;
+  phase: number;
+  from: AnimationDirection;
+  intro: boolean;
+  green: boolean;
+}
+
+interface PieceProps {
+  data: PieceData;
+  progRef: React.MutableRefObject<number>;
+}
+
+interface AnimatedCarProps {
+  id: string;
+  startPos: Vector3Tuple;
+  axis: Axis;
+  speed: number;
+  length?: number;
+}
+
+interface AnimatedPedestrianProps {
+  id: string;
+  startPos: Vector3Tuple;
+  walkAxis: Axis;
+  speed: number;
+  distance: number;
+}
 
 // ─── PALETTE ──────────────────────────────────────────────────────────────
 const C = {
@@ -23,12 +61,12 @@ const C = {
 
 // ─── FLOOR LAYOUT HELPERS ─────────────────────────────────────────────────
 const FH   = 5.2;
-const slabY = (n) => n * FH - 0.1;
-const wallY = (n) => n * FH + 2.5;
-const furY  = (n) => n * FH + 0.13;
+const slabY = (n: number) => n * FH - 0.1;
+const wallY = (n: number) => n * FH + 2.5;
+const furY  = (n: number) => n * FH + 0.13;
 
 // ─── PRIMITIVE BUILDERS (BUILDING) ────────────────────────────────────────
-function slab(id, n, phase, intro) {
+function slab(id: string, n: number, phase: number, intro: boolean): PieceData[] {
   const y = slabY(n);
   return [
     { id:`${id}_c`, pos:[0,  y,0],  scale:[34,0.25,22], phase, from:'top', intro, green:false },
@@ -37,7 +75,7 @@ function slab(id, n, phase, intro) {
   ];
 }
 
-function outerWalls(id, n, phase, intro) {
+function outerWalls(id: string, n: number, phase: number, intro: boolean): PieceData[] {
   const y = wallY(n);
   return [
     { id:`${id}_f`, pos:[0,  y, 11], scale:[34,5,0.25], phase,      from:'front', intro, green:false },
@@ -47,7 +85,7 @@ function outerWalls(id, n, phase, intro) {
   ];
 }
 
-function columns(id, n, phase, intro) {
+function columns(id: string, n: number, phase: number, intro: boolean): PieceData[] {
   const y = wallY(n);
   return [
     { id:`${id}_fl`, pos:[-17,y,-11], scale:[0.55,5,0.55], phase, from:'grow', intro, green:false },
@@ -57,13 +95,13 @@ function columns(id, n, phase, intro) {
   ];
 }
 
-function window3(id, pos, w, h, axis, phase, intro) {
+function window3(id: string, pos: Vector3Tuple, w: number, h: number, axis: Axis, phase: number, intro: boolean): PieceData[] {
   const depth = 0.22;
   const [px, py, pz] = pos;
   const isX = axis === 'x';
-  const frameScale  = isX ? [depth, h, w] : [w, h, depth];
-  const hBarScale   = isX ? [depth+0.05, 0.12, w * 0.95] : [w * 0.95, 0.12, depth+0.05];
-  const vBarScale   = isX ? [depth+0.05, h * 0.9, 0.12]  : [0.12, h * 0.9, depth+0.05];
+  const frameScale: Vector3Tuple  = isX ? [depth, h, w] : [w, h, depth];
+  const hBarScale: Vector3Tuple   = isX ? [depth+0.05, 0.12, w * 0.95] : [w * 0.95, 0.12, depth+0.05];
+  const vBarScale: Vector3Tuple   = isX ? [depth+0.05, h * 0.9, 0.12]  : [0.12, h * 0.9, depth+0.05];
   return [
     { id:`${id}_frame`, pos:[px,py,pz],        scale:frameScale,  phase,        from: isX?'right':'front', intro, green:true  },
     { id:`${id}_hbar`,  pos:[px,py,pz],        scale:hBarScale,   phase:phase+0.01, from:'grow', intro, green:true  },
@@ -72,7 +110,7 @@ function window3(id, pos, w, h, axis, phase, intro) {
 }
 
 // ─── FURNITURE PRIMITIVES ─────────────────────────────────────────────────
-function chair(id, cx, fz, n, phase, intro) {
+function chair(id: string, cx: number, fz: number, n: number, phase: number, intro: boolean): PieceData[] {
   const y = furY(n);
   return [
     { id:`${id}_seat`, pos:[cx, y+0.55, fz],    scale:[1.1,0.12,1.0], phase, from:'grow', intro, green:true },
@@ -84,7 +122,7 @@ function chair(id, cx, fz, n, phase, intro) {
   ];
 }
 
-function table(id, cx, fz, n, phase, intro) {
+function table(id: string, cx: number, fz: number, n: number, phase: number, intro: boolean): PieceData[] {
   const y = furY(n);
   return [
     { id:`${id}_top`,  pos:[cx, y+0.95, fz],        scale:[2.5,0.12,1.4], phase, from:'grow', intro, green:true },
@@ -95,7 +133,7 @@ function table(id, cx, fz, n, phase, intro) {
   ];
 }
 
-function tv(id, cx, fz, n, phase, intro) {
+function tv(id: string, cx: number, fz: number, n: number, phase: number, intro: boolean): PieceData[] {
   const y = furY(n);
   return [
     { id:`${id}_screen`, pos:[cx, y+2.1, fz],       scale:[3.0,1.8,0.12], phase, from:'grow', intro, green:true },
@@ -104,14 +142,14 @@ function tv(id, cx, fz, n, phase, intro) {
   ];
 }
 
-function photoFrame(id, cx, wy, fz, phase, intro) {
+function photoFrame(id: string, cx: number, wy: number, fz: number, phase: number, intro: boolean): PieceData[] {
   return [
     { id:`${id}_frame`, pos:[cx, wy+0.6, fz],   scale:[1.0,1.4,0.08], phase, from:'grow', intro, green:true },
     { id:`${id}_inner`, pos:[cx, wy+0.6, fz],   scale:[0.7,1.0,0.10], phase:phase+0.01, from:'grow', intro, green:true },
   ];
 }
 
-function sofa(id, cx, fz, n, phase, intro) {
+function sofa(id: string, cx: number, fz: number, n: number, phase: number, intro: boolean): PieceData[] {
   const y = furY(n);
   return [
     { id:`${id}_seat`,  pos:[cx, y+0.48, fz],        scale:[3.2,0.35,1.2], phase, from:'grow', intro, green:true },
@@ -121,7 +159,7 @@ function sofa(id, cx, fz, n, phase, intro) {
   ];
 }
 
-function shelf(id, cx, fz, n, phase, intro) {
+function shelf(id: string, cx: number, fz: number, n: number, phase: number, intro: boolean): PieceData[] {
   const y = furY(n);
   return [
     { id:`${id}_body`,  pos:[cx, y+1.2, fz],         scale:[1.8,2.4,0.4],  phase, from:'grow', intro, green:true },
@@ -133,11 +171,11 @@ function shelf(id, cx, fz, n, phase, intro) {
 
 // ─── ENVIRONMENT PRIMITIVES (CITY LIFE) ───────────────────────────────────
 
-function car(id, pos, axis = 'x') {
+function car(id: string, pos: Vector3Tuple, axis: Axis = 'x'): PieceData[] {
   const isX = axis === 'x';
   const [px, py, pz] = pos;
-  const bodyScale = isX ? [3.5, 1.2, 1.8] : [1.8, 1.2, 3.5];
-  const wS = isX ? [0.6, 0.6, 0.2] : [0.2, 0.6, 0.6];
+  const bodyScale: Vector3Tuple = isX ? [3.5, 1.2, 1.8] : [1.8, 1.2, 3.5];
+  const wS: Vector3Tuple = isX ? [0.6, 0.6, 0.2] : [0.2, 0.6, 0.6];
   const dx = isX ? 1 : 0.9;
   const dz = isX ? 0.9 : 1;
   
@@ -150,7 +188,7 @@ function car(id, pos, axis = 'x') {
   ];
 }
 
-function human(id, pos) {
+function human(id: string, pos: Vector3Tuple): PieceData[] {
   return [
     { id: `${id}_legs`, pos: [pos[0], pos[1] + 0.5, pos[2]], scale: [0.4, 0.8, 0.2], phase: 0.15, from: 'grow', intro: true, green: true },
     { id: `${id}_body`, pos: [pos[0], pos[1] + 1.3, pos[2]], scale: [0.6, 0.8, 0.3], phase: 0.16, from: 'grow', intro: true, green: true },
@@ -158,16 +196,16 @@ function human(id, pos) {
   ];
 }
 
-function shop(id, pos, width, facing = '-z') {
+function shop(id: string, pos: Vector3Tuple, width: number, facing: FacingDirection = '-z'): PieceData[] {
   const [px, py, pz] = pos;
   const isX = facing === '+x' || facing === '-x';
   
   let signDir = 1;
   if (facing === '-z' || facing === '-x') signDir = -1;
 
-  const baseScale = isX ? [8, 4, width] : [width, 4, 8];
-  const glassScale = isX ? [0.1, 3, width * 0.8] : [width * 0.8, 3, 0.1];
-  const signScale = isX ? [0.2, 0.8, width * 0.5] : [width * 0.5, 0.8, 0.2];
+  const baseScale: Vector3Tuple = isX ? [8, 4, width] : [width, 4, 8];
+  const glassScale: Vector3Tuple = isX ? [0.1, 3, width * 0.8] : [width * 0.8, 3, 0.1];
+  const signScale: Vector3Tuple = isX ? [0.2, 0.8, width * 0.5] : [width * 0.5, 0.8, 0.2];
 
   const gOff = 4 * signDir;
   const gx = isX ? px + gOff : px;
@@ -185,32 +223,26 @@ function shop(id, pos, width, facing = '-z') {
 }
 
 // ─── FULL STATIC ELEMENT LIST ──────────────────────────────────────────────
-const ELEMENTS = [
+const ELEMENTS: PieceData[] = [
 
   // ══════════════════════════════════════════════════════════════════
   //  360° ENVIRONMENT BASE
   // ══════════════════════════════════════════════════════════════════
   
-  // Roads (Ring around the building)
   { id: 'rd_f', pos: [0, -0.1,  28], scale: [100, 0.1, 10], phase: 0.05, from: 'grow', intro: true, green: false },
   { id: 'rd_b', pos: [0, -0.1, -28], scale: [100, 0.1, 10], phase: 0.05, from: 'grow', intro: true, green: false },
   { id: 'rd_l', pos: [-36,-0.1,  0], scale: [10, 0.1, 100], phase: 0.05, from: 'grow', intro: true, green: false },
   { id: 'rd_r', pos: [36, -0.1,  0], scale: [10, 0.1, 100], phase: 0.05, from: 'grow', intro: true, green: false },
 
-  // Shops (Facing inwards towards the building)
-  // Front shops (z=38, facing -z)
   ...shop('sh_f1', [-20, 2,  38], 12, '-z'),
   ...shop('sh_f2', [ 15, 2,  38], 15, '-z'),
   
-  // Back shops (z=-38, facing +z)
   ...shop('sh_b1', [-10, 2, -38], 16, '+z'),
   ...shop('sh_b2', [ 25, 2, -38], 10, '+z'),
 
-  // Left shops (x=-46, facing +x)
   ...shop('sh_l1', [-46, 2,  15], 14, '+x'),
   ...shop('sh_l2', [-46, 2, -15], 12, '+x'),
 
-  // Right shops (x=46, facing -x)
   ...shop('sh_r1', [ 46, 2,   0], 20, '-x'),
 
   // ══════════════════════════════════════════════════════════════════
@@ -334,7 +366,7 @@ const ELEMENTS = [
 // ─── TRAVEL DISTANCE ──────────────────────────────────────────────────────
 const TRAVEL = 60;
 
-function startPos(el) {
+function startPos(el: PieceData): Vector3Tuple {
   const [x,y,z] = el.pos;
   switch(el.from) {
     case 'top':   return [x, y+TRAVEL, z];
@@ -347,9 +379,9 @@ function startPos(el) {
 }
 
 // ─── PIECE ───────────────────────────────────────────────────────────────
-function Piece({ data, progRef }) {
-  const meshRef = useRef(null);
-  const edgeRef = useRef(null);
+function Piece({ data, progRef }: PieceProps) {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const edgeRef = useRef<THREE.LineSegments>(null);
   const sp0     = useMemo(() => startPos(data), [data]);
 
   const [w,h,d] = data.scale;
@@ -378,7 +410,7 @@ function Piece({ data, progRef }) {
     }
 
     if (meshRef.current.material) {
-      meshRef.current.material.opacity = e * (data.green ? 0.06 : 0.30);
+      (meshRef.current.material as THREE.Material).opacity = e * (data.green ? 0.06 : 0.30);
     }
 
     if (edgeRef.current?.material) {
@@ -388,8 +420,8 @@ function Piece({ data, progRef }) {
         new THREE.Color(flashEdge),
         fresh
       );
-      edgeRef.current.material.color.copy(col);
-      edgeRef.current.material.opacity = e * (data.green ? 0.70 + fresh*0.30 : 0.22 + fresh*0.60);
+      (edgeRef.current.material as THREE.LineBasicMaterial).color.copy(col);
+      (edgeRef.current.material as THREE.Material).opacity = e * (data.green ? 0.70 + fresh*0.30 : 0.22 + fresh*0.60);
     }
   });
 
@@ -407,7 +439,7 @@ function Piece({ data, progRef }) {
 
 // ─── ANNOTATION DOTS & LINES ──────────────────────────────────────────────
 function Dots() {
-  const pts = [
+  const pts: Vector3Tuple[] = [
     [-17,0,11],[17,0,11],[-17,0,-11],[17,0,-11],
     [-17,slabY(1),11],[17,slabY(1),11],
     [-17,slabY(2),11],[17,slabY(2),11],
@@ -424,9 +456,10 @@ function Dots() {
   </>;
 }
 
-function FloorLines({ progRef }) {
+function FloorLines({ progRef }: { progRef: React.MutableRefObject<number> }) {
   const FLOORS = [{ y:slabY(0), t:0.10 }, { y:slabY(1), t:0.42 }, { y:slabY(2), t:0.62 }, { y:slabY(3), t:0.80 }];
-  const refs = FLOORS.map(()=>useRef(null));
+  // Using generic reference due to minor discrepancies in how drei types Line materials across versions
+  const refs = FLOORS.map(() => useRef<any>(null));
 
   useFrame(()=>{
     FLOORS.forEach((f,i)=>{
@@ -444,10 +477,9 @@ function FloorLines({ progRef }) {
 
 // ─── ANIMATED ACTORS ──────────────────────────────────────────────────────
 
-// Individual Car Component handles its own loop
-function AnimatedCar({ id, startPos, axis, speed, length = 160 }) {
-  const groupRef = useRef(null);
-  const staticProg = useRef(1); // Keeps it permanently rendered
+function AnimatedCar({ id, startPos, axis, speed, length = 160 }: AnimatedCarProps) {
+  const groupRef = useRef<THREE.Group>(null);
+  const staticProg = useRef<number>(1); 
   
   useFrame((state) => {
     if (!groupRef.current) return;
@@ -469,10 +501,9 @@ function AnimatedCar({ id, startPos, axis, speed, length = 160 }) {
   );
 }
 
-// Individual Pedestrian Component
-function AnimatedPedestrian({ id, startPos, walkAxis, speed, distance }) {
-  const pedRef = useRef(null);
-  const staticProg = useRef(1);
+function AnimatedPedestrian({ id, startPos, walkAxis, speed, distance }: AnimatedPedestrianProps) {
+  const pedRef = useRef<THREE.Group>(null);
+  const staticProg = useRef<number>(1);
 
   useFrame((state) => {
     if (!pedRef.current) return;
@@ -494,7 +525,6 @@ function AnimatedPedestrian({ id, startPos, walkAxis, speed, distance }) {
   );
 }
 
-// Manager for all moving traffic
 function AnimatedActors() {
   return (
     <>
@@ -528,13 +558,13 @@ const INTRO_MS = 2600;
 
 function Scene() {
   const { mouse } = useThree();
-  const groupRef  = useRef(null);
+  const groupRef  = useRef<THREE.Group>(null);
 
-  const introStart = useRef(null);
-  const introDone  = useRef(false);
-  const introRaw   = useRef(0);
-  const scrollRaw  = useRef(0);
-  const progSmooth = useRef(0);
+  const introStart = useRef<number | null>(null);
+  const introDone  = useRef<boolean>(false);
+  const introRaw   = useRef<number>(0);
+  const scrollRaw  = useRef<number>(0);
+  const progSmooth = useRef<number>(0);
 
   useEffect(()=>{
     introStart.current = performance.now();
