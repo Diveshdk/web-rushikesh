@@ -1,7 +1,15 @@
 import { Studio } from "../components/page/StudioPage"
-function page() {
+
+import { prisma } from "../lib/prisma";
+
+const getImages = async () => {
+  const posts = await prisma.images.findMany().then((res) => res.map((item) => item.url));
+  return posts;
+}
+async function page() {
+  const studioImages = await getImages();
   return (
-    <Studio />
+    <Studio studioImages={studioImages} />
   )
 }
 
