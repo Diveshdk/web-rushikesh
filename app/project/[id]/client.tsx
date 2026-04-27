@@ -45,6 +45,8 @@ export default function ProjectDetailClient({ idParam }: { idParam: string }) {
   const [project, setProject] = useState<Project | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [galleryOpen, setGalleryOpen] = useState(false)
+  const [galleryIndex, setGalleryIndex] = useState(0)
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -150,7 +152,30 @@ export default function ProjectDetailClient({ idParam }: { idParam: string }) {
                 </CardHeader>
                 <CardContent>
                   <div className="mb-6">
-                    <ImageGallery images={project.images.map(getImageUrl)} />
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      {project.images.map((img, i) => (
+                        <div 
+                          key={i} 
+                          className="aspect-square relative cursor-pointer overflow-hidden rounded-lg group"
+                          onClick={() => {
+                            setGalleryIndex(i)
+                            setGalleryOpen(true)
+                          }}
+                        >
+                          <img 
+                            src={getImageUrl(img)} 
+                            alt={`${project.title} ${i + 1}`} 
+                            className="object-cover w-full h-full transition-transform group-hover:scale-110" 
+                          />
+                        </div>
+                      ))}
+                    </div>
+                    <ImageGallery 
+                      images={project.images.map(getImageUrl)} 
+                      isOpen={galleryOpen}
+                      onClose={() => setGalleryOpen(false)}
+                      initialIndex={galleryIndex}
+                    />
                   </div>
 
                   <div className="space-y-6">
@@ -279,7 +304,12 @@ export default function ProjectDetailClient({ idParam }: { idParam: string }) {
                     <CardTitle>Project Location</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <ProjectMap lat={project.latitude} lng={project.longitude} />
+                    <ProjectMap 
+                      latitude={project.latitude} 
+                      longitude={project.longitude} 
+                      location={project.location}
+                      projectTitle={project.title}
+                    />
                   </CardContent>
                 </Card>
               )}

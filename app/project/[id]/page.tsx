@@ -37,8 +37,8 @@ type Params = { id: string }
 
 export const revalidate = 60
 
-function absoluteUrl(path: string) {
-  const hdrs = headers()
+async function absoluteUrl(path: string) {
+  const hdrs = await headers()
   const proto = hdrs.get("x-forwarded-proto") || "https"
   const host = hdrs.get("host") || "localhost:3000"
   const cleaned = path.startsWith("/") ? path : `/${path}`
@@ -67,7 +67,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     const siteName = "Hariom Jangid Architects"
 
     if (!project) {
-      const url = absoluteUrl(`/projects/${params.id}`)
+      const url = await absoluteUrl(`/projects/${params.id}`)
       return {
         title: `Project — ${siteName}`,
         alternates: { canonical: url },
@@ -75,27 +75,27 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
           type: "website",
           url,
           title: `Project — ${siteName}`,
-          images: [{ url: absoluteUrl("/default-preview.png"), width: 1200, height: 630 }],
+          images: [{ url: await absoluteUrl("/default-preview.png"), width: 1200, height: 630 }],
           siteName,
         },
         twitter: {
           card: "summary_large_image",
           title: `Project — ${siteName}`,
-          images: [absoluteUrl("/default-preview.png")],
+          images: [await absoluteUrl("/default-preview.png")],
         },
       }
     }
 
-    const pageUrl = absoluteUrl(`/projects/${createSlug(project.title)}`)
+    const pageUrl = await absoluteUrl(`/projects/${createSlug(project.title)}`)
     const hero = project.hero_image
       ? project.hero_image.startsWith("http")
         ? project.hero_image
-        : absoluteUrl(project.hero_image.startsWith("/") ? project.hero_image : `/${project.hero_image}`)
+        : await absoluteUrl(project.hero_image.startsWith("/") ? project.hero_image : `/${project.hero_image}`)
       : project.images && project.images.length > 0
         ? project.images[0].startsWith("http")
           ? project.images[0]
-          : absoluteUrl(project.images[0].startsWith("/") ? project.images[0] : `/${project.images[0]}`)
-        : absoluteUrl("/default-preview.png")
+          : await absoluteUrl(project.images[0].startsWith("/") ? project.images[0] : `/${project.images[0]}`)
+        : await absoluteUrl("/default-preview.png")
 
     return {
       title: `${project.title} — ${siteName}`,
@@ -117,7 +117,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       },
     }
   } catch {
-    const url = absoluteUrl(`/projects/${params.id}`)
+    const url = await absoluteUrl(`/projects/${params.id}`)
     return {
       title: "Project — Hariom Jangid Architects",
       alternates: { canonical: url },
@@ -125,13 +125,13 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
         type: "website",
         url,
         title: "Project — Hariom Jangid Architects",
-        images: [{ url: absoluteUrl("/default-preview.png"), width: 1200, height: 630 }],
+        images: [{ url: await absoluteUrl("/default-preview.png"), width: 1200, height: 630 }],
         siteName: "Hariom Jangid Architects",
       },
       twitter: {
         card: "summary_large_image",
         title: "Project — Hariom Jangid Architects",
-        images: [absoluteUrl("/default-preview.png")],
+        images: [await absoluteUrl("/default-preview.png")],
       },
     }
   }
