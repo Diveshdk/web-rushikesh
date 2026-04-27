@@ -12,6 +12,8 @@ import { createSlug } from "@/lib/utils"
 import Link from "next/link"
 import { ArrowLeft, MapPin, Calendar, User, Camera, Building, Tag, Share2, Check } from "lucide-react"
 import { toast } from "sonner"
+import { Navbar } from "@/components/Navbar"
+import { Footer } from "@/components/Footer"
 
 interface Project {
   id: number
@@ -158,7 +160,7 @@ export default function ProjectDetailClient({ idParam }: { idParam: string }) {
   if (loading) {
     return (
       <div className="min-h-screen bg-white overflow-x-hidden">
-        <Navigation />
+        <Navbar />
         <div className="flex items-center justify-center min-h-[60vh] pt-20">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-violet-600 mx-auto mb-4"></div>
@@ -173,7 +175,7 @@ export default function ProjectDetailClient({ idParam }: { idParam: string }) {
   if (error || !project) {
     return (
       <div className="min-h-screen bg-white overflow-x-hidden">
-        <Navigation />
+        <Navbar />
         <div className="flex items-center justify-center min-h-[60vh] pt-20">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">Project Not Found</h1>
@@ -212,7 +214,7 @@ export default function ProjectDetailClient({ idParam }: { idParam: string }) {
 
         {/* Navigation Overlay */}
         <div className="absolute top-0 left-0 right-0 z-40">
-          <Navigation />
+          <Navbar />
         </div>
 
         {/* Back Button - Top Left */}

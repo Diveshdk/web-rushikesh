@@ -6,8 +6,8 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import AdminControls from "@/components/admin-controls"
-import AdminEditControls from "@/components/admin-edit-controls"
+// import AdminControls from "@/components/admin-controls"
+// import AdminEditControls from "@/components/admin-edit-controls"
 import { supabase, type Project } from "@/lib/supabase"
 import { createSlug } from "@/lib/utils"
 import { Filter, Calendar, Clock } from "lucide-react"
@@ -105,7 +105,7 @@ export default function ClientProjectsPage() {
     <div className="min-h-screen bg-white overflow-x-hidden">
       
       {/* Optional admin add panel */}
-      <AdminControls onDataUpdated={handleProjectAdded} />
+      {/* <AdminControls onDataUpdated={handleProjectAdded} /> */}
 
       {/* Hero */}
       <section className="pt-24 pb-16 px-4 max-w-7xl mx-auto">
@@ -237,12 +237,13 @@ export default function ClientProjectsPage() {
                   </Card>
                 </Link>
 
+{/* 
                 <AdminEditControls
                   isVisible={showAdminControls}
                   itemId={project.id}
                   itemType="project"
                   onDelete={handleProjectDeleted}
-                />
+                /> */}
               </div>
             </motion.div>
           ))}
