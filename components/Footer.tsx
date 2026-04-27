@@ -7,7 +7,7 @@ export const Footer = () => {
         <div className="max-w-md">
           <div className="flex items-center gap-4 mb-10 group cursor-none">
             <div className="w-fit h-fit flex items-center justify-center">
-              <Image src="/logo.png" alt="Logo" width={50} height={50} className='bg-transparent' />
+              <Image src="/logo.png" alt="Logo" width={50} height={50} className='bg-transparent' style={{ height: 'auto' }} />
             </div>
             <span className="font-display font-bold uppercase tracking-widest text-lg md:text-xl text-left">
               Rushikesh Sutar <br />

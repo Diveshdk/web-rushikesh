@@ -57,7 +57,7 @@ export const Navbar = () => {
     )}>
       <Link href="/" className="flex items-center gap-1 md:gap-2 cursor-none group">
         <div className="w-fit h-fit flex items-center justify-center">
-          <Image src="/logo.png" alt="Logo" width={50} height={50} className='bg-transparent' />
+          <Image src="/logo.png" alt="Logo" width={50} height={50} className='bg-transparent' style={{ height: 'auto' }} />
         </div>
         <span className="font-display font-bold uppercase tracking-[0.2em] text-[7px] md:text-[10px] leading-tight flex flex-col">
           <span>Rushikesh Sutar</span>

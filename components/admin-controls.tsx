@@ -18,7 +18,8 @@ import {
   type Testimonial,
 } from "@/lib/supabase"
 import { toast } from "sonner"
-import { X, Plus, Edit, Trash2, MapPin, ExternalLink, Video as Youtube, Star, Award, BookOpen, BadgeCheck, Shield } from "lucide-react"
+import { X, Plus, Edit, Trash2, MapPin, ExternalLink, Video as Youtube, Star, Award, BookOpen, BadgeCheck, Shield, Upload } from "lucide-react"
+import ImageUpload from "@/components/ImageUpload"
 
 interface AdminControlsProps {
   onDataUpdated?: () => void
@@ -657,12 +658,11 @@ export default function AdminControls({ onDataUpdated }: AdminControlsProps) {
                   </div>
 
                   <div>
-                    <Label htmlFor="hero_image">Hero Image URL *</Label>
-                    <Input
-                      id="hero_image"
+                    <Label htmlFor="hero_image">Hero Image *</Label>
+                    <ImageUpload
                       value={projectForm.hero_image}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setProjectForm((prev) => ({ ...prev, hero_image: e.target.value }))}
-                      placeholder="https://example.com/hero-image.jpg"
+                      onChange={(url: string) => setProjectForm((prev) => ({ ...prev, hero_image: url }))}
+                      onRemove={() => setProjectForm((prev) => ({ ...prev, hero_image: "" }))}
                     />
                   </div>
 
@@ -688,14 +688,14 @@ export default function AdminControls({ onDataUpdated }: AdminControlsProps) {
                     </div>
                     <div className="space-y-2">
                       {projectForm.images.map((image, index) => (
-                        <div key={index} className="flex gap-2">
-                          <Input
+                        <div key={index} className="flex gap-2 items-start">
+                          <ImageUpload
                             value={image}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => updateImageField(index, e.target.value)}
-                            placeholder="Image URL"
+                            onChange={(url: string) => updateImageField(index, url)}
+                            onRemove={() => updateImageField(index, "")}
                           />
                           {projectForm.images.length > 1 && (
-                            <Button type="button" variant="outline" size="sm" onClick={() => removeImageField(index)}>
+                            <Button type="button" variant="outline" size="sm" onClick={() => removeImageField(index)} className="mt-1">
                               <X className="w-4 h-4" />
                             </Button>
                           )}
@@ -735,10 +735,10 @@ export default function AdminControls({ onDataUpdated }: AdminControlsProps) {
                             />
                           ) : (
                             <div className="space-y-2">
-                              <Input
+                              <ImageUpload
                                 value={(block as any).src || ""}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => updateContentBlock(index, "src", e.target.value)}
-                                placeholder="Image URL"
+                                onChange={(url: string) => updateContentBlock(index, "src", url)}
+                                onRemove={() => updateContentBlock(index, "src", "")}
                               />
                               <Input
                                 value={(block as any).caption || ""}
@@ -809,12 +809,11 @@ export default function AdminControls({ onDataUpdated }: AdminControlsProps) {
                   </div>
 
                   <div>
-                    <Label htmlFor="galleryImage">Image URL *</Label>
-                    <Input
-                      id="galleryImage"
+                    <Label htmlFor="galleryImage">Image *</Label>
+                    <ImageUpload
                       value={designForm.image}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setDesignForm((p) => ({ ...p, image: e.target.value }))}
-                      placeholder="https://example.com/gallery.jpg"
+                      onChange={(url: string) => setDesignForm((p) => ({ ...p, image: url }))}
+                      onRemove={() => setDesignForm((p) => ({ ...p, image: "" }))}
                     />
                   </div>
 
@@ -849,12 +848,11 @@ export default function AdminControls({ onDataUpdated }: AdminControlsProps) {
                 <div className="space-y-6">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="instaImage">Image URL *</Label>
-                      <Input
-                        id="instaImage"
+                      <Label htmlFor="instaImage">Post Image *</Label>
+                      <ImageUpload
                         value={instagramForm.image}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setInstagramForm((p) => ({ ...p, image: e.target.value }))}
-                        placeholder="https://example.com/instagram.jpg"
+                        onChange={(url: string) => setInstagramForm((p) => ({ ...p, image: url }))}
+                        onRemove={() => setInstagramForm((p) => ({ ...p, image: "" }))}
                       />
                     </div>
                     <div>
@@ -961,12 +959,11 @@ export default function AdminControls({ onDataUpdated }: AdminControlsProps) {
 
                   <div className="grid grid-cols-3 gap-4">
                     <div className="col-span-2">
-                      <Label htmlFor="tImage">Image URL</Label>
-                      <Input
-                        id="tImage"
-                        value={testimonialForm.image}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setTestimonialForm((p) => ({ ...p, image: e.target.value }))}
-                        placeholder="https://example.com/user.jpg"
+                      <Label htmlFor="tImage">Author Image</Label>
+                      <ImageUpload
+                        value={testimonialForm.image || ""}
+                        onChange={(url: string) => setTestimonialForm((p) => ({ ...p, image: url }))}
+                        onRemove={() => setTestimonialForm((p) => ({ ...p, image: "" }))}
                       />
                     </div>
                     <div>
