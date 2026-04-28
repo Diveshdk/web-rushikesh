@@ -1,12 +1,33 @@
 "use client";
 
 import { motion } from 'motion/react';
-
+import { GridPattern } from '@/components/ui/grid-pattern';
+import { cn } from '@/lib/utils';
 
 const StudioClient = ({studioImages}: {studioImages: string[]}) => {
   return (
-    <main className="min-h-screen bg-brand-background pt-32 pb-24 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto">
+    <main className="min-h-screen bg-brand-background pt-32 pb-24 px-6 md:px-12 relative">
+      <GridPattern 
+        squares={[
+          [4, 4],
+          [5, 1],
+          [8, 2],
+          [5, 3],
+          [5, 5],
+          [10, 10],
+          [12, 15],
+          [15, 10],
+          [10, 15],
+          [15, 10],
+          [10, 15],
+          [15, 10],
+        ]}
+        className={cn(
+          "[mask-image:linear-gradient(to_bottom,white_80%,transparent)]",
+          "fixed inset-0 z-0 w-screen h-screen opacity-50 pointer-events-none"
+        )} 
+      />
+      <div className="max-w-7xl mx-auto relative z-10">
         <header className="mb-20 text-center">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="h-[1px] w-12 bg-brand-border" />

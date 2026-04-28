@@ -10,6 +10,7 @@ import AdminEditControls from "@/components/admin-edit-controls"
 import { supabase, type Project } from "@/lib/supabase"
 import { createSlug, cn } from "@/lib/utils"
 import { Filter, Calendar, Clock, ArrowRight } from "lucide-react"
+import { GridPattern } from "@/components/ui/grid-pattern"
 type SortOption = "recent" | "oldest" | "year-desc" | "year-asc"
 
 export default function ClientProjectsPage() {
@@ -92,8 +93,28 @@ export default function ClientProjectsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-brand-background text-brand-text overflow-x-hidden pt-32 pb-20 px-6">
-      <section className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-brand-background text-brand-text overflow-x-hidden pt-32 pb-20 px-6 relative">
+      <GridPattern 
+        squares={[
+          [4, 4],
+          [5, 1],
+          [8, 2],
+          [5, 3],
+          [5, 5],
+          [10, 10],
+          [12, 15],
+          [15, 10],
+          [10, 15],
+          [15, 10],
+          [10, 15],
+          [15, 10],
+        ]}
+        className={cn(
+          "[mask-image:linear-gradient(to_bottom,white_80%,transparent)]",
+          "fixed inset-0 z-0 w-screen h-screen opacity-50 pointer-events-none"
+        )} 
+      />
+      <section className="max-w-7xl mx-auto relative z-10">
         <motion.div
           className="text-center mb-24"
           initial={{ opacity: 0, y: 30 }}
