@@ -95,7 +95,7 @@ export const Projects = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
-            className="group cursor-none break-inside-avoid bg-brand-background border border-brand-border/30 rounded-[32px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-700 relative"
+            className="group cursor-none break-inside-avoid bg-transparent border border-brand-border/30 rounded-[32px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-700 relative"
           >
             {isAdmin && (
               <AdminEditControls 

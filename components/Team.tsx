@@ -37,7 +37,7 @@ export const Team = () => {
             viewport={{ once: true }}
             className="group cursor-none"
           >
-            <div className="aspect-[4/5] bg-brand-background rounded-3xl overflow-hidden mb-8 relative border border-brand-border group-hover:border-brand-green transition-colors duration-700">
+            <div className="aspect-[4/5] bg-transparent rounded-3xl overflow-hidden mb-8 relative border border-brand-border group-hover:border-brand-green transition-colors duration-700">
               <img
                 src={member.image}
                 alt={member.name}

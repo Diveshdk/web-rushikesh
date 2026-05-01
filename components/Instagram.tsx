@@ -37,7 +37,7 @@ export const Instagram = () => {
   if (posts.length === 0) return null;
 
   return (
-    <section id="instagram" className="py-24 md:py-32 bg-white text-brand-text relative overflow-hidden border-t border-brand-border">
+    <section id="instagram" className="py-24 md:py-32 bg-transparent text-brand-text relative overflow-hidden border-t border-brand-border">
       <div className="px-6 md:px-24 mb-16">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div>

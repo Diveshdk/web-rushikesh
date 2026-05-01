@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Award, Users } from 'lucide-react';
+
 
 export const About = () => {
   return (
@@ -41,18 +41,7 @@ export const About = () => {
             </p>
           </div>
           
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-brand-border pt-12">
-            <div className="group">
-              < Award className="text-brand-green mb-6 group-hover:scale-110 transition-transform" size={24} />
-              <h4 className="font-bold text-xs uppercase tracking-widest mb-3">Technical Excellence</h4>
-              <p className="text-sm opacity-40 leading-relaxed">Precision in execution and material selection across all scales.</p>
-            </div>
-            <div className="group">
-              <Users className="text-brand-green mb-6 group-hover:scale-110 transition-transform" size={24} />
-              <h4 className="font-bold text-xs uppercase tracking-widest mb-3">Synergistic Studio</h4>
-              <p className="text-sm opacity-40 leading-relaxed">Collaborative dynamics fostering innovation and architectural growth.</p>
-            </div>
-          </div>
+
         </div>
 
         <motion.div

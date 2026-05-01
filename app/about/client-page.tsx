@@ -184,7 +184,7 @@ function AchievementsSection() {
               whileInView={{ opacity: 1 }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
               viewport={{ once: true }}
-              className="bg-brand-background px-8 py-10 group hover:bg-brand-green/5 transition-colors duration-500 flex flex-col justify-between"
+              className="bg-transparent px-8 py-10 group hover:bg-brand-green/5 transition-colors duration-500 flex flex-col justify-between"
             >
               <span className="text-5xl md:text-6xl font-display font-medium tracking-tighter text-brand-text group-hover:text-brand-green transition-colors duration-500">
                 {a.value}
@@ -306,7 +306,7 @@ function ServicesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08, duration: 0.7 }}
             viewport={{ once: true }}
-            className="bg-brand-background p-8 group hover:bg-brand-green/5 transition-colors duration-500 flex flex-col gap-4"
+            className="bg-transparent p-8 group hover:bg-brand-green/5 transition-colors duration-500 flex flex-col gap-4"
           >
             <span className="text-brand-green/30 text-3xl font-light group-hover:text-brand-green transition-colors duration-500">
               {s.icon}
@@ -502,7 +502,7 @@ function TeamSection({ teamData }: { teamData: employees[] }) {
             onMouseLeave={() => setActive(null)}
           >
             {/* Photo */}
-            <div className="aspect-[3/4] bg-brand-background rounded-[2rem] overflow-hidden mb-8 relative border border-brand-border group-hover:border-brand-green transition-colors duration-700 shadow-sm group-hover:shadow-xl group-hover:shadow-brand-green/10">
+            <div className="aspect-[3/4] bg-transparent rounded-[2rem] overflow-hidden mb-8 relative border border-brand-border group-hover:border-brand-green transition-colors duration-700 shadow-sm group-hover:shadow-xl group-hover:shadow-brand-green/10">
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10 pointer-events-none mix-blend-overlay" />
               {member.imageurl ? (
                 <img
@@ -665,7 +665,7 @@ function StudioSection() {
             <div
               key={card.label}
               className={cn(
-                "border border-brand-border/30 rounded-2xl p-6 flex flex-col justify-between bg-brand-background hover:border-brand-green/40 hover:bg-brand-green/5 transition-all duration-700 group",
+                "border border-brand-border/30 rounded-2xl p-6 flex flex-col justify-between bg-transparent hover:border-brand-green/40 hover:bg-brand-green/5 transition-all duration-700 group",
                 card.tall ? "row-span-2 py-12" : ""
               )}
             >
@@ -734,7 +734,7 @@ export default function ClientAboutPage({
   teamData: employees[];
 }) {
   return (
-    <div className="min-h-screen pt-32 pb-24 px-6 md:px-24 relative bg-brand-background">
+    <div className="min-h-screen pt-32 pb-24 px-6 md:px-24 relative bg-transparent">
       {/* Background pattern */}
       <GridPattern
         squares={[
