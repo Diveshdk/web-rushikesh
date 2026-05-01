@@ -3,8 +3,17 @@
 import { motion } from 'motion/react';
 import { GridPattern } from '@/components/ui/grid-pattern';
 import { cn } from '@/lib/utils';
+import ImageGallery from "@/components/image-gallery"
+import { useState } from 'react';
 
 const StudioClient = ({studioImages}: {studioImages: string[]}) => {
+  const [galleryOpen, setGalleryOpen] = useState(false)
+  const [galleryIndex, setGalleryIndex] = useState(0)
+
+  const getImageUrl = (src: string) => {
+    if (!src) return "/placeholder.svg"
+    return src.startsWith("http") ? src : `/${src}`
+  }
   return (
     <main className="min-h-screen bg-brand-background pt-32 pb-24 px-6 md:px-12 relative">
       <GridPattern 
@@ -51,17 +60,28 @@ const StudioClient = ({studioImages}: {studioImages: string[]}) => {
               transition={{ delay: (i % 4) * 0.1, duration: 0.8 }}
               viewport={{ once: true }}
               className="relative group rounded-3xl overflow-hidden cursor-none"
+              onClick={() => {
+                setGalleryIndex(i)
+                setGalleryOpen(true)
+              }}
             >
-              {/* Note: Standard <img> tag kept intentionally for CSS Masonry compatibility */}
               <img 
-                src={`${src}?auto=format&fit=crop&q=80&w=800`} 
-                alt="Architecture exhibition" 
-                className="w-full h-auto object-cover transition-all duration-700 brightness-90 group-hover:brightness-100 group-hover:scale-105"
+                src={`${getImageUrl(src)}${src.includes('?') ? '&' : '?'}auto=format&fit=crop&q=80&w=800`} 
+                alt={`Gallery image ${i + 1}`} 
+                className="w-full h-auto object-cover transition-all duration-700 brightness-90 group-hover:brightness-100 group-hover:scale-110"
               />
+              
               <div className="absolute inset-0 bg-brand-green/10 opacity-0 group-hover:opacity-100 transition-opacity" />
             </motion.div>
           ))}
         </div>
+        
+        <ImageGallery 
+          images={studioImages.map(img => `${getImageUrl(img)}${img.includes('?') ? '&' : '?'}auto=format&fit=crop&q=90&w=1920`)} 
+          isOpen={galleryOpen}
+          onClose={() => setGalleryOpen(false)}
+          initialIndex={galleryIndex}
+        />
       </div>
     </main>
   );
