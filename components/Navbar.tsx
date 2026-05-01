@@ -28,6 +28,23 @@ const ScaleIcon = ({ isOpen }: { isOpen: boolean }) => (
   </motion.svg>
 );
 
+const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
+  <motion.svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    animate={{ rotate: isOpen ? 180 : 0 }}
+    transition={{ type: "spring", stiffness: 260, damping: 20 }}
+  >
+    <polyline points="6 9 12 15 18 9" />
+  </motion.svg>
+);
+
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,10 +58,12 @@ export const Navbar = () => {
   }, []);
 
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
 
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
+    { name: "The Studio", href: "/studio" },
     { 
       name: "Projects", 
       href: "/project",
@@ -153,27 +172,46 @@ export const Navbar = () => {
             <div className="flex flex-col gap-6">
               {navLinks.map((link) => (
                 <div key={link.name} className="flex flex-col gap-4">
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-4xl md:text-6xl font-display font-bold text-white hover:text-brand-green transition-all tracking-tighter"
-                  >
-                    {link.name}
-                  </Link>
-                  {link.subLinks && (
-                    <div className="flex flex-col gap-3 pl-2">
-                      {link.subLinks.map((sub) => (
-                        <Link
-                          key={sub.name}
-                          href={sub.href}
-                          onClick={() => setIsMenuOpen(false)}
-                          className="text-lg font-display font-medium text-white/40 hover:text-brand-green transition-all tracking-tight uppercase"
-                        >
-                          {sub.name}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                  <div className="flex items-center justify-between">
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="text-4xl md:text-6xl font-display font-bold text-white hover:text-brand-green transition-all tracking-tighter"
+                    >
+                      {link.name}
+                    </Link>
+                    {link.subLinks && (
+                      <button
+                        onClick={() => setOpenMobileDropdown(openMobileDropdown === link.name ? null : link.name)}
+                        className="text-white p-2 rounded-full hover:bg-white/10 transition-colors cursor-none"
+                      >
+                        <ChevronIcon isOpen={openMobileDropdown === link.name} />
+                      </button>
+                    )}
+                  </div>
+                  <AnimatePresence>
+                    {link.subLinks && openMobileDropdown === link.name && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="flex flex-col gap-3 pl-2">
+                          {link.subLinks.map((sub) => (
+                            <Link
+                              key={sub.name}
+                              href={sub.href}
+                              onClick={() => setIsMenuOpen(false)}
+                              className="text-lg font-display font-medium text-white/40 hover:text-brand-green transition-all tracking-tight uppercase block"
+                            >
+                              {sub.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               ))}
             </div>
