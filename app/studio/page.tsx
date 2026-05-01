@@ -207,7 +207,7 @@ function GallerySection({ images = DEFAULT_GALLERY }: { images?: GalleryImage[] 
     };
 
     return (
-        <section className="max-w-7xl mx-auto mb-32">
+        <section className="max-w-7xl mx-auto mb-16">
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -283,7 +283,7 @@ function MarqueeSection() {
     const text = ["Architecture", "Interiors", "Landscape", "Planning"];
 
     return (
-        <section className="mb-32 border-y border-brand-border/20 py-6 overflow-hidden relative">
+        <section className="mb-16 border-y border-brand-border/20 py-6 overflow-hidden relative">
             <motion.div
                 animate={{ x: [0, "-50%"] }}
                 transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
@@ -307,7 +307,7 @@ function MarqueeSection() {
 ───────────────────────────────────────────── */
 function PhilosophySection() {
     return (
-        <section className="max-w-7xl mx-auto mb-32">
+        <section className="max-w-7xl mx-auto mb-16">
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-16 lg:gap-24">
                 <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }} className="flex flex-col justify-between">
                     <div>
@@ -354,7 +354,7 @@ function PhilosophySection() {
 ───────────────────────────────────────────── */
 function CultureSection() {
     return (
-        <section className="max-w-7xl mx-auto mb-32">
+        <section className="max-w-7xl mx-auto mb-16">
             <SectionLabel text="Work Culture" />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-brand-border/20 border border-brand-border/20 rounded-2xl overflow-hidden mt-8">
                 {CULTURE_PILLARS.map((pillar, i) => (
@@ -384,21 +384,6 @@ function ContactAndCTA() {
                     <a href="mailto:rushikesh@rsandassociates.co.in" className="bg-brand-background p-8 group hover:bg-brand-green/5 transition-colors duration-500">
                         <span className="text-brand-text/30 text-[10px] uppercase tracking-[0.2em] font-medium block mb-2">Email</span>
                         <span className="text-brand-text/70 text-sm font-light group-hover:text-brand-green">rushikesh@rsandassociates.co.in</span>
-                    </a>
-                </div>
-            </div>
-
-            <div className="border border-brand-border/40 rounded-3xl p-12 md:p-20 text-center relative overflow-hidden">
-                <div className="relative z-10">
-                    <SectionLabel text="Work With Us" />
-                    <h2 className="text-4xl md:text-6xl font-display font-medium tracking-tighter leading-[1.0] mb-6">
-                        Start your <span className="text-brand-green italic">project</span> with us.
-                    </h2>
-                    <p className="text-brand-text/30 text-sm font-light max-w-sm mx-auto mb-10">
-                        Our team responds within 24–48 hours. Share your brief and let's explore what we can create together.
-                    </p>
-                    <a href="/enquiry" className="inline-flex items-center gap-3 bg-brand-green text-brand-background text-xs uppercase tracking-[0.2em] font-bold px-8 py-4 rounded-full hover:bg-brand-green/80 transition-all duration-500">
-                        Submit Enquiry →
                     </a>
                 </div>
             </div>
@@ -438,7 +423,7 @@ const images: GalleryImage[] = [
 
 export default function StudioPage() {
     return (
-        <div className="min-h-screen pt-32 pb-24 px-6 md:px-24 relative bg-brand-background">
+        <div className="min-h-screen pt-32 pb-6 px-6 md:px-24 relative bg-brand-background">
             <GridPattern
                 squares={[[4, 4], [5, 1], [8, 2], [10, 10], [12, 15], [15, 10]]}
                 className={cn("[mask-image:linear-gradient(to_bottom,white_80%,transparent)]", "fixed inset-0 z-0 w-screen h-screen opacity-50 pointer-events-none")}

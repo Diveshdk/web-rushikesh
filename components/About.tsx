@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 
 export const About = () => {
   return (
-    <section id="about" className="relative py-24 md:py-40 px-6 md:px-24 border-b border-brand-border/20 z-20">
+    <section id="about" className="relative py-16 md:py-20 px-6 md:px-24 border-b border-brand-border/20 z-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
         
         <div className="order-1 lg:order-2">
@@ -11,7 +11,7 @@ export const About = () => {
             <span className="text-brand-green text-[12px] md:text-[14px] uppercase tracking-[0.5em] font-bold">About Us</span>
             <div className="h-[1px] w-20 bg-brand-border" />
           </div>
-          <h2 className="text-4xl md:text-6xl font-display font-medium mb-10 leading-[0.9] tracking-tighter">
+          <h2 className="text-4xl md:text-6xl font-display font-medium mb-6 leading-[0.9] tracking-tighter">
             CRAFTING <br/>
             <span className="text-brand-green italic serif uppercase">MEANINGFUL SPACES</span>.
           </h2>

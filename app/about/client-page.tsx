@@ -126,7 +126,7 @@ function SectionLabel({ text }: { text: string }) {
 ───────────────────────────────────────────── */
 function HeroSection() {
   return (
-    <div className="max-w-7xl mx-auto mb-24 flex flex-col items-center text-center">
+    <div className="max-w-7xl mx-auto mb-12 flex flex-col items-center text-center">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -168,7 +168,7 @@ function HeroSection() {
 ───────────────────────────────────────────── */
 function AchievementsSection() {
   return (
-    <section className="max-w-7xl mx-auto mb-32">
+    <section className="max-w-7xl mx-auto mb-16">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -205,7 +205,7 @@ function AchievementsSection() {
 ───────────────────────────────────────────── */
 function AboutSection() {
   return (
-    <section className="max-w-7xl mx-auto mb-32">
+    <section className="max-w-7xl mx-auto mb-16">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
         {/* Left — narrative */}
         <motion.div
@@ -284,7 +284,7 @@ function AboutSection() {
 ───────────────────────────────────────────── */
 function ServicesSection() {
   return (
-    <section className="max-w-7xl mx-auto mb-32">
+    <section className="max-w-7xl mx-auto mb-16">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -329,7 +329,7 @@ function ServicesSection() {
 ───────────────────────────────────────────── */
 function TimelineSection() {
   return (
-    <section className="max-w-7xl mx-auto mb-32">
+    <section className="max-w-7xl mx-auto mb-16">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -465,7 +465,7 @@ function TeamSection({ teamData }: { teamData: employees[] }) {
       : STATIC_TEAM.map((m) => ({ ...m, id: BigInt(m.id) } as any));
 
   return (
-    <section className="max-w-7xl mx-auto mb-32">
+    <section className="max-w-7xl mx-auto mb-16">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -593,48 +593,6 @@ function TeamSection({ teamData }: { teamData: employees[] }) {
 
 
 /* ─────────────────────────────────────────────
-   CTA
-───────────────────────────────────────────── */
-function CTASection() {
-  return (
-    <section className="max-w-7xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        viewport={{ once: true, margin: "-80px" }}
-        className="border border-brand-border/40 rounded-3xl p-12 md:p-20 text-center relative overflow-hidden"
-      >
-        {/* Background accent */}
-        <div className="absolute inset-0 bg-brand-green/[0.03] pointer-events-none" />
-        <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-brand-green/40 to-transparent" />
-
-        <div className="relative z-10">
-          <SectionLabel text="Let's Build Together" />
-          <h2 className="text-4xl md:text-6xl font-display font-medium tracking-tighter leading-[1.0] mb-6">
-            Ready to start{" "}
-            <span className="text-brand-green italic">your project</span>?
-          </h2>
-          <p className="text-brand-text/40 text-sm font-light max-w-md mx-auto mb-10 leading-relaxed">
-            Our team responds within 24–48 hours. Share your brief and let's
-            explore what we can create together.
-          </p>
-          <a
-            href="/contact"
-            className="inline-flex items-center gap-3 border border-brand-green text-brand-green text-xs uppercase tracking-[0.2em] font-bold px-8 py-4 rounded-full hover:bg-brand-green hover:text-brand-background transition-all duration-500 group"
-          >
-            Start Your Project
-            <span className="group-hover:translate-x-1 transition-transform duration-300">
-              →
-            </span>
-          </a>
-        </div>
-      </motion.div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────
    PAGE ROOT
 ───────────────────────────────────────────── */
 export default function ClientAboutPage({
@@ -643,7 +601,7 @@ export default function ClientAboutPage({
   teamData: employees[];
 }) {
   return (
-    <div className="min-h-screen pt-32 pb-24 px-6 md:px-24 relative bg-transparent">
+    <div className="min-h-screen pt-32 pb-6 px-6 md:px-24 relative bg-transparent">
       {/* Background pattern */}
       <GridPattern
         squares={[
@@ -664,7 +622,6 @@ export default function ClientAboutPage({
         <ServicesSection />
         <TimelineSection />
         <TeamSection teamData={teamData} />
-        <CTASection />
       </div>
     </div>
   );

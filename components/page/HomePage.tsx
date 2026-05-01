@@ -44,7 +44,6 @@ export default function HomePage() {
       <Testimonials />
       <Team />
       <Instagram />
-      <Contact />
     </main>
   );
 }
