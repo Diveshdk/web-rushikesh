@@ -40,10 +40,21 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
-    { name: "Projects", href: "/project" },
+    { 
+      name: "Projects", 
+      href: "/project",
+      subLinks: [
+        { name: "Residential", href: "/project?category=residential" },
+        { name: "Commercial", href: "/project?category=commercial" },
+        { name: "Interior", href: "/project?category=interior" },
+        { name: "Landscape", href: "/project?category=landscape" }
+      ]
+    },
     { name: "Gallery", href: "/gallery" },
     { name: "Careers", href: "/careers" },
     { name: "Contact", href: "/contact" }
@@ -52,39 +63,71 @@ export const Navbar = () => {
   return (
     <>
       <nav className={cn(
-      "fixed top-0 left-0 w-full z-[100] transition-all duration-700 py-4 md:py-6 px-6 md:px-12 flex justify-between items-center",
-      isScrolled
-        ? "bg-brand-background border-b border-brand-border py-3 md:py-4 opacity-100 translate-y-0"
-        : "bg-transparent opacity-0 -translate-y-full pointer-events-none"
-    )}>
-      <Link href="/" className="flex items-center gap-1 md:gap-2 cursor-none group">
-        <div className="w-fit h-fit flex items-center justify-center">
-          <Image src="/logo.png" alt="Logo" width={50} height={50} className='bg-transparent' style={{ height: 'auto' }} />
+        "fixed top-0 left-0 w-full z-[100] transition-all duration-700 py-4 md:py-6 px-6 md:px-12 flex justify-between items-center",
+        isScrolled
+          ? "bg-brand-background border-b border-brand-border py-3 md:py-4 opacity-100 translate-y-0"
+          : "bg-transparent opacity-0 -translate-y-full pointer-events-none"
+      )}>
+        <Link href="/" className="flex items-center gap-1 md:gap-2 cursor-none group">
+          <div className="w-fit h-fit flex items-center justify-center">
+            <Image src="/logo.png" alt="Logo" width={50} height={50} className='bg-transparent' style={{ height: 'auto' }} />
+          </div>
+          <span className="font-display font-bold uppercase tracking-[0.2em] text-[7px] md:text-[10px] leading-tight flex flex-col">
+            <span>Rushikesh Sutar</span>
+            <span className="text-brand-green">& Associates</span>
+          </span>
+        </Link>
+
+        <div className="hidden md:flex gap-12 text-[10px] uppercase tracking-[0.3em] font-medium text-brand-text/60">
+          {navLinks.map((link) => (
+            <div 
+              key={link.name} 
+              className="relative group/nav"
+              onMouseEnter={() => setHoveredLink(link.name)}
+              onMouseLeave={() => setHoveredLink(null)}
+            >
+              <Link
+                href={link.href}
+                className="hover:text-brand-green transition-colors cursor-none py-2 block"
+              >
+                {link.name}
+              </Link>
+              
+              {link.subLinks && (
+                <AnimatePresence>
+                  {hoveredLink === link.name && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-48"
+                    >
+                      <div className="bg-brand-background border border-brand-border rounded-2xl shadow-xl overflow-hidden py-2 backdrop-blur-xl">
+                        {link.subLinks.map((sub) => (
+                          <Link
+                            key={sub.name}
+                            href={sub.href}
+                            className="block px-6 py-3 text-[9px] uppercase tracking-widest font-bold hover:bg-brand-green hover:text-white transition-all cursor-none"
+                          >
+                            {sub.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              )}
+            </div>
+          ))}
         </div>
-        <span className="font-display font-bold uppercase tracking-[0.2em] text-[7px] md:text-[10px] leading-tight flex flex-col">
-          <span>Rushikesh Sutar</span>
-          <span className="text-brand-green">& Associates</span>
-        </span>
-      </Link>
 
-      <div className="hidden md:flex gap-12 text-[10px] uppercase tracking-[0.3em] font-medium text-brand-text/60">
-        {navLinks.map((link) => (
-          <Link
-            key={link.name}
-            href={link.href}
-            className="hover:text-brand-green transition-colors cursor-none"
-          >
-            {link.name}
-          </Link>
-        ))}
-      </div>
-
-      <button
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="md:hidden flex items-center justify-center p-3 rounded-full bg-brand-text text-white hover:bg-brand-green transition-all cursor-none"
-      >
-        <ScaleIcon isOpen={isMenuOpen} />
-      </button>
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="md:hidden flex items-center justify-center p-3 rounded-full bg-brand-text text-white hover:bg-brand-green transition-all cursor-none"
+        >
+          <ScaleIcon isOpen={isMenuOpen} />
+        </button>
 
       </nav>
 
@@ -95,9 +138,9 @@ export const Navbar = () => {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 top-0 right-0 bg-black z-[200] flex flex-col md:w-[500px] shadow-left p-12 md:p-24"
+            className="fixed inset-0 top-0 right-0 bg-black z-[200] flex flex-col md:w-[500px] shadow-left p-12 md:p-24 overflow-y-auto"
           >
-            <div className="flex justify-between items-center mb-24">
+            <div className="flex justify-between items-center mb-16 shrink-0">
               <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-white/40">Navigation</span>
               <button
                 onClick={() => setIsMenuOpen(false)}
@@ -107,16 +150,31 @@ export const Navbar = () => {
               </button>
             </div>
 
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-6">
               {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-4xl md:text-6xl font-display font-bold text-white hover:text-brand-green transition-all tracking-tighter"
-                >
-                  {link.name}
-                </Link>
+                <div key={link.name} className="flex flex-col gap-4">
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-4xl md:text-6xl font-display font-bold text-white hover:text-brand-green transition-all tracking-tighter"
+                  >
+                    {link.name}
+                  </Link>
+                  {link.subLinks && (
+                    <div className="flex flex-col gap-3 pl-2">
+                      {link.subLinks.map((sub) => (
+                        <Link
+                          key={sub.name}
+                          href={sub.href}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="text-lg font-display font-medium text-white/40 hover:text-brand-green transition-all tracking-tight uppercase"
+                        >
+                          {sub.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
 

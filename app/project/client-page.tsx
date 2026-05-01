@@ -10,11 +10,14 @@ import AdminEditControls from "@/components/admin-edit-controls"
 import { type Project } from "@/lib/supabase"
 import { getProjects } from "./actions"
 import { createSlug, cn } from "@/lib/utils"
+import { useSearchParams } from "next/navigation"
 import { Filter, Calendar, Clock, ArrowRight } from "lucide-react"
 import { GridPattern } from "@/components/ui/grid-pattern"
+import { Suspense } from "react"
 type SortOption = "recent" | "oldest" | "year-desc" | "year-asc"
 
-export default function ClientProjectsPage() {
+function ProjectsContent() {
+  const searchParams = useSearchParams()
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [sortBy, setSortBy] = useState<SortOption>("year-desc") // default to Year (Newest)
   const [projects, setProjects] = useState<Project[]>([])
@@ -40,6 +43,18 @@ export default function ClientProjectsPage() {
       setIsAdmin(true)
     }
   }, [])
+
+  // Handle category from URL
+  useEffect(() => {
+    const categoryParam = searchParams.get("category")
+    if (categoryParam) {
+      // Capitalize first letter to match our internal category names
+      const formattedCategory = categoryParam.charAt(0).toUpperCase() + categoryParam.slice(1).toLowerCase()
+      setSelectedCategory(formattedCategory)
+    } else {
+      setSelectedCategory("All")
+    }
+  }, [searchParams])
 
   
 
@@ -93,18 +108,9 @@ export default function ClientProjectsPage() {
     <div className="min-h-screen bg-brand-background text-brand-text overflow-x-hidden pt-32 pb-20 px-6 relative">
       <GridPattern 
         squares={[
-          [4, 4],
-          [5, 1],
-          [8, 2],
-          [5, 3],
-          [5, 5],
-          [10, 10],
-          [12, 15],
-          [15, 10],
-          [10, 15],
-          [15, 10],
-          [10, 15],
-          [15, 10],
+          [4, 4], [5, 1], [8, 2], [5, 3], [5, 5],
+          [10, 10], [12, 15], [15, 10], [10, 15],
+          [15, 10], [10, 15], [15, 10],
         ]}
         className={cn(
           "[mask-image:linear-gradient(to_bottom,white_80%,transparent)]",
@@ -232,5 +238,21 @@ export default function ClientProjectsPage() {
         )}
       </section>
     </div>
+  )
+}
+
+export default function ClientProjectsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-brand-background flex items-center justify-center">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ ease: "linear", duration: 1, repeat: Infinity }}
+          className="h-12 w-12 border-t-2 border-brand-green rounded-full"
+        />
+      </div>
+    }>
+      <ProjectsContent />
+    </Suspense>
   )
 }
