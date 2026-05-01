@@ -590,98 +590,7 @@ function TeamSection({ teamData }: { teamData: employees[] }) {
   );
 }
 
-/* ─────────────────────────────────────────────
-   STUDIO
-───────────────────────────────────────────── */
-function StudioSection() {
-  return (
-    <section className="max-w-7xl mx-auto mb-32">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true, margin: "-80px" }}
-        >
-          <SectionLabel text="The Space" />
-          <h2 className="text-4xl md:text-5xl font-display font-medium tracking-tighter leading-[1.05] mb-8">
-            A studio that{" "}
-            <span className="text-brand-green italic">thinks</span>.
-          </h2>
-          <div className="space-y-4 text-brand-text/50 text-sm leading-relaxed font-light">
-            <p>
-              Our studio is a reflection of our design philosophy — simple,
-              functional, and thoughtfully curated. It is not just a workspace,
-              but a collaborative environment where ideas are explored, designs
-              are refined, and projects come to life.
-            </p>
-            <p>
-              Great design comes from strong collaboration. Our team works
-              closely across all stages — from concept development to execution
-              — ensuring attention to detail and clarity in every project.
-            </p>
-            <p>
-              The studio fosters an open and dynamic work environment where
-              creativity, technical expertise, and practical problem-solving
-              come together seamlessly.
-            </p>
-          </div>
 
-          <div className="mt-8 flex items-center gap-6">
-            <div className="flex flex-col">
-              <span className="text-brand-text/30 text-[10px] uppercase tracking-[0.2em] font-medium mb-1">
-                Location
-              </span>
-              <span className="text-brand-text/70 text-sm font-light">
-                Oracle Business Park, Thane West
-              </span>
-            </div>
-            <div className="w-[1px] h-10 bg-brand-border/40" />
-            <div className="flex flex-col">
-              <span className="text-brand-text/30 text-[10px] uppercase tracking-[0.2em] font-medium mb-1">
-                Established
-              </span>
-              <span className="text-brand-text/70 text-sm font-light">
-                Since 2016
-              </span>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Decorative grid of studio "cards" */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-2 gap-4"
-        >
-          {[
-            { label: "Collaboration", icon: "◻", tall: true },
-            { label: "Precision", icon: "⬡", tall: false },
-            { label: "Innovation", icon: "◈", tall: false },
-            { label: "Excellence", icon: "◻", tall: true },
-          ].map((card, i) => (
-            <div
-              key={card.label}
-              className={cn(
-                "border border-brand-border/30 rounded-2xl p-6 flex flex-col justify-between bg-transparent hover:border-brand-green/40 hover:bg-brand-green/5 transition-all duration-700 group",
-                card.tall ? "row-span-2 py-12" : ""
-              )}
-            >
-              <span className="text-brand-green/20 text-4xl group-hover:text-brand-green/50 transition-colors duration-500">
-                {card.icon}
-              </span>
-              <span className="text-brand-text/30 text-xs uppercase tracking-[0.2em] font-medium group-hover:text-brand-green/60 transition-colors duration-500">
-                {card.label}
-              </span>
-            </div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
 
 /* ─────────────────────────────────────────────
    CTA
@@ -755,7 +664,6 @@ export default function ClientAboutPage({
         <ServicesSection />
         <TimelineSection />
         <TeamSection teamData={teamData} />
-        <StudioSection />
         <CTASection />
       </div>
     </div>

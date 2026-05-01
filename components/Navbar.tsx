@@ -65,8 +65,8 @@ export const Navbar = () => {
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
     { name: "The Studio", href: "/studio" },
-    { 
-      name: "Projects", 
+    {
+      name: "Projects",
       href: "/project",
       subLinks: [
         { name: "Residential", href: "/project?category=residential" },
@@ -83,19 +83,19 @@ export const Navbar = () => {
   return (
     <>
       {/* Hover Trigger Zone */}
-      <div 
+      <div
         className="fixed top-0 left-0 w-full h-12 z-[101] pointer-events-auto"
         onMouseEnter={() => setIsHovered(true)}
       />
 
-      <nav 
+      <nav
         onMouseLeave={() => setIsHovered(false)}
         className={cn(
-        "fixed top-0 left-0 w-full z-[100] transition-all duration-700 py-4 md:py-6 px-6 md:px-12 flex justify-between items-center",
-        (isScrolled || isHovered)
-          ? "bg-brand-background/95 backdrop-blur-md border-b border-brand-border py-3 md:py-4 opacity-100 translate-y-0 pointer-events-auto"
-          : "bg-transparent opacity-0 -translate-y-full pointer-events-none"
-      )}>
+          "fixed top-0 left-0 w-full z-[100] transition-all duration-700 py-4 md:py-6 px-6 md:px-12 flex justify-between items-center",
+          (isScrolled || isHovered)
+            ? "bg-brand-background/95 backdrop-blur-md border-b border-brand-border py-3 md:py-4 opacity-100 translate-y-0 pointer-events-auto"
+            : "bg-transparent opacity-0 -translate-y-full pointer-events-none"
+        )}>
 
         <Link href="/" className="flex items-center gap-1 md:gap-2 cursor-none group">
           <div className="w-fit h-fit flex items-center justify-center">
@@ -107,21 +107,21 @@ export const Navbar = () => {
           </span>
         </Link>
 
-        <div className="hidden md:flex gap-12 text-[10px] uppercase tracking-[0.3em] font-medium text-brand-text/60">
+        <div className="hidden md:flex gap-4 text-[10px] uppercase tracking-[0.3em] font-medium text-brand-text/60">
           {navLinks.map((link) => (
-            <div 
-              key={link.name} 
+            <div
+              key={link.name}
               className="relative group/nav"
               onMouseEnter={() => setHoveredLink(link.name)}
               onMouseLeave={() => setHoveredLink(null)}
             >
               <Link
                 href={link.href}
-                className="hover:text-brand-green transition-colors cursor-none py-2 block"
+                className="hover:text-brand-green transition-colors cursor-none px-2 py-2 block"
               >
                 {link.name}
               </Link>
-              
+
               {link.subLinks && (
                 <AnimatePresence>
                   {hoveredLink === link.name && (
