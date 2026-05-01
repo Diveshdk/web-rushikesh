@@ -1,6 +1,6 @@
 import Image from "next/image";
-import AnimatedLogo from "./components/AnimatedLogo";
-import AnimatedLogoMobile from "./components/AnimatedLogoMobile";
+import AnimatedLogo from "./AnimatedLogo";
+import AnimatedLogoMobile from "./AnimatedLogoMobile";
 
 export default function Home() {
   return (
