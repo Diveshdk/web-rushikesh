@@ -83,8 +83,8 @@ export const Navbar = () => {
   return (
     <>
       {/* Hover Trigger Zone */}
-      <div
-        className="fixed top-0 left-0 w-full h-12 z-[101] pointer-events-auto"
+      <div 
+        className="fixed top-0 left-0 w-full h-16 z-[90] pointer-events-auto"
         onMouseEnter={() => setIsHovered(true)}
       />
 
@@ -117,7 +117,7 @@ export const Navbar = () => {
             >
               <Link
                 href={link.href}
-                className="hover:text-brand-green transition-colors cursor-none px-2 py-2 block"
+                className="hover:text-brand-green transition-colors cursor-none py-4 block"
               >
                 {link.name}
               </Link>
@@ -137,7 +137,7 @@ export const Navbar = () => {
                           <Link
                             key={sub.name}
                             href={sub.href}
-                            className="block px-6 py-3 text-[9px] uppercase tracking-widest font-bold hover:bg-brand-green hover:text-white transition-all cursor-none"
+                            className="block px-6 py-4 text-[9px] uppercase tracking-widest font-bold hover:bg-brand-green hover:text-white transition-all cursor-none"
                           >
                             {sub.name}
                           </Link>
@@ -213,7 +213,7 @@ export const Navbar = () => {
                               key={sub.name}
                               href={sub.href}
                               onClick={() => setIsMenuOpen(false)}
-                              className="text-lg font-display font-medium text-white/40 hover:text-brand-green transition-all tracking-tight uppercase block"
+                              className="text-lg font-display font-medium text-white/40 hover:text-brand-green transition-all tracking-tight uppercase block py-2"
                             >
                               {sub.name}
                             </Link>
