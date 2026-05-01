@@ -117,7 +117,7 @@ export const Navbar = () => {
             >
               <Link
                 href={link.href}
-                className="hover:text-brand-green transition-colors cursor-none py-4 block"
+                className="hover:text-brand-green transition-colors cursor-none px-2 py-4 block"
               >
                 {link.name}
               </Link>
@@ -132,7 +132,7 @@ export const Navbar = () => {
                       transition={{ duration: 0.2, ease: "easeOut" }}
                       className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-48"
                     >
-                      <div className="bg-brand-background border border-brand-border rounded-2xl shadow-xl overflow-hidden py-2 backdrop-blur-xl">
+                      <div className="bg-brand-background border border-brand-border rounded-2xl shadow-xl overflow-hidden px-2 py-2 backdrop-blur-xl">
                         {link.subLinks.map((sub) => (
                           <Link
                             key={sub.name}
