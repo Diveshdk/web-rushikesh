@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -14,7 +15,12 @@ interface ImageGalleryProps {
 
 const ImageGallery = ({ images, isOpen, onClose, initialIndex = 0 }: ImageGalleryProps) => {
   const [[page, direction], setPage] = useState([initialIndex, 0])
+  const [mounted, setMounted] = useState(false)
   const currentIndex = (page + images.length) % images.length
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     setPage([initialIndex, 0])
@@ -99,10 +105,10 @@ const ImageGallery = ({ images, isOpen, onClose, initialIndex = 0 }: ImageGaller
     return Math.abs(offset) * velocity
   }
 
-  return (
+  const content = (
     <AnimatePresence initial={false} custom={direction}>
       <motion.div
-        className="fixed inset-0 bg-black/95 z-50 flex flex-col"
+        className="fixed inset-0 bg-black/95 z-[1000] flex flex-col"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -230,8 +236,9 @@ const ImageGallery = ({ images, isOpen, onClose, initialIndex = 0 }: ImageGaller
         </div>
       </motion.div>
     </AnimatePresence>
-
   )
+
+  return createPortal(content, document.body)
 }
 
 export default ImageGallery
