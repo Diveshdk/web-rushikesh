@@ -1,9 +1,19 @@
-import React from 'react'
+import { prisma } from '@/lib/prisma';
+import ClientAboutPage from './client-page';
 
-function page() {
-  return (
-    <div>page</div>
-  )
+export const metadata = {
+  title: 'About Us | Architecture Studio',
+  description: 'Meet our team of visionaries, architects, and designers.',
+};
+
+export const dynamic = 'force-dynamic';
+
+export default async function AboutPage() {
+  const teamData = await prisma.employees.findMany({
+    orderBy: {
+      id: 'asc',
+    },
+  });
+
+  return <ClientAboutPage teamData={teamData} />;
 }
-
-export default page
