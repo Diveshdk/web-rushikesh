@@ -24,9 +24,8 @@ export function Hero() {
 
         {/* Services Section */}
         <div className="mt-8 services-appear text-center">
-          <p className="text-sm sm:text-lg tracking-[0.4em] uppercase font-light text-gray-400 leading-relaxed">
-            Architecture &nbsp;|&nbsp; Interior <br /> 
-            Urban Design &nbsp;|&nbsp; Landscape
+          <p className="text-sm sm:text-lg tracking-[0.4em] uppercase font-light text-gray-400">
+            Architecture &nbsp;|&nbsp; Interior &nbsp;|&nbsp; Urban Design &nbsp;|&nbsp; Landscape
           </p>
         </div>
 
