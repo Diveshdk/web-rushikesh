@@ -199,6 +199,8 @@ export default function ProjectDetailClient({ idParam }: { idParam: string }) {
                         src={getImageUrl(img)} 
                         alt={`${project.title} ${i + 1}`} 
                         className="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-105" 
+                        loading="lazy"
+                        decoding="async"
                       />
                       <div className="absolute inset-0 bg-brand-green/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
@@ -229,6 +231,8 @@ export default function ProjectDetailClient({ idParam }: { idParam: string }) {
                                 src={getImageUrl(item.src) || "/placeholder.svg"}
                                 alt={item.caption || `Image ${index + 1}`}
                                 className="w-full h-auto"
+                                loading="lazy"
+                                decoding="async"
                               />
                             </div>
                             {item.caption && (

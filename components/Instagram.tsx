@@ -82,6 +82,8 @@ export const Instagram = () => {
               src={post.image} 
               alt={post.caption || "Instagram post"} 
               className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+              loading="lazy"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white backdrop-blur-[2px]">
               <div className="flex gap-8 mb-6">

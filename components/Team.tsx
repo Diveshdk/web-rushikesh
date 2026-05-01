@@ -42,6 +42,8 @@ export const Team = () => {
                 src={member.image}
                 alt={member.name}
                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <h3 className="text-2xl font-display font-medium tracking-tight mb-2 group-hover:text-brand-green transition-colors">{member.name}</h3>

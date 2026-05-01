@@ -115,6 +115,8 @@ export const Projects = () => {
                   src={project.hero_image || "/default-preview.png"} 
                   alt={project.title} 
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-brand-green/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
                   <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-brand-green scale-50 group-hover:scale-100 transition-transform duration-500 shadow-xl">

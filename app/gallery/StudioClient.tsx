@@ -69,6 +69,8 @@ const StudioClient = ({studioImages}: {studioImages: string[]}) => {
                 src={`${getImageUrl(src)}${src.includes('?') ? '&' : '?'}auto=format&fit=crop&q=80&w=800`} 
                 alt={`Gallery image ${i + 1}`} 
                 className="w-full h-auto object-cover transition-all duration-700 brightness-90 group-hover:brightness-100 group-hover:scale-110"
+                loading="lazy"
+                decoding="async"
               />
               
               <div className="absolute inset-0 bg-brand-green/10 opacity-0 group-hover:opacity-100 transition-opacity" />

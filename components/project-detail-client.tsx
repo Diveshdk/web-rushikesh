@@ -212,6 +212,7 @@ export default function ProjectDetailClient({ idParam }: { idParam: string }) {
                             alt={block.caption || "Project visual"}
                             className="w-full h-auto transition-transform duration-1000 group-hover:scale-105"
                             loading="lazy"
+                            decoding="async"
                           />
                         </div>
                         {block.caption && (
@@ -252,6 +253,7 @@ export default function ProjectDetailClient({ idParam }: { idParam: string }) {
                       alt={`Gallery preview ${i + 1}`}
                       className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                       loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 ))}
@@ -314,6 +316,7 @@ export default function ProjectDetailClient({ idParam }: { idParam: string }) {
                           alt={rp.title}
                           className="w-full h-full object-cover transition-transform group-hover:scale-110"
                           loading="lazy"
+                          decoding="async"
                         />
                       </div>
                       <div className="overflow-hidden">

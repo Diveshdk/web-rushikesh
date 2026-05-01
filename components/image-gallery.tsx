@@ -221,6 +221,8 @@ const ImageGallery = ({ images, isOpen, onClose, initialIndex = 0 }: ImageGaller
                         src={image || "/placeholder.svg"}
                         alt={`Thumbnail ${index + 1}`}
                         className="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
                       />
                     </button>
                   ))}

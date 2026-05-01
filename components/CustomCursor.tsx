@@ -11,14 +11,14 @@ export const CustomCursor = () => {
 
   useGSAP(() => {
     const moveCursor = (e: MouseEvent) => {
-      gsap.to(dotRef.current, { x: e.clientX, y: e.clientY, duration: 0 });
+      gsap.set(dotRef.current, { x: e.clientX, y: e.clientY });
       gsap.to(ringRef.current, { x: e.clientX, y: e.clientY, duration: 0.4, ease: "power2.out" });
     };
 
     const handleHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const isInteractive = !!target.closest('button, a, .group');
-      setIsHovering(isInteractive);
+      const isInteractive = !!target.closest('button, a, .group, input, textarea, select');
+      setIsHovering((prev) => prev !== isInteractive ? isInteractive : prev);
     };
 
     window.addEventListener('mousemove', moveCursor);
