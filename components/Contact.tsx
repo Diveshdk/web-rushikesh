@@ -2,8 +2,8 @@ import { ArrowRight, MapPin, Phone, Mail } from 'lucide-react';
 
 export const Contact = () => {
   return (
-    <section id="contact" className="relative py-24 md:py-40 px-6 md:px-24 border-t border-brand-border z-20">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-32">
+    <section id="contact" className="relative pt-24 pb-12 md:pt-20 md:pb-16 px-6 md:px-24 border-t border-brand-border z-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-16">
         <div>
            <div className="flex items-center gap-4 mb-8">
             <span className="text-brand-green text-[10px] uppercase tracking-[0.4em] font-bold">Contact</span>

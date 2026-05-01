@@ -44,7 +44,7 @@ export const Projects = () => {
   const displayedProjects = filteredProjects;
 
   return (
-    <section id="projects" className="relative py-40 bg-white/[0.02] backdrop-blur-[1px] text-brand-text z-20 overflow-hidden">
+    <section id="projects" className="relative pt-20 pb-12 bg-white/[0.02] backdrop-blur-[1px] text-brand-text z-20 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-5">
          <motion.div 
           animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
@@ -62,7 +62,7 @@ export const Projects = () => {
         </motion.div>
       </div>
 
-      <div className="relative mb-24 flex flex-col items-center text-center gap-12 px-6 md:px-24">
+      <div className="relative mb-12 flex flex-col items-center text-center gap-12 px-6 md:px-24">
         <div className="max-w-3xl">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="h-[1px] w-12 bg-brand-border" />

@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import Image from 'next/image';
 export const Stats = () => {
   return (
-    <section className="relative py-24 md:py-32 px-6 md:px-24 border-y border-brand-border bg-transparent z-40">
+    <section className="relative py-12 md:py-16 px-6 md:px-24 border-y border-brand-border bg-transparent z-40">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-0">
         <div className="flex flex-col items-center text-center">
           <span className="text-brand-green font-display text-6xl md:text-8xl font-light tracking-tighter mb-4 italic">08+</span>

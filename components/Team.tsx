@@ -9,8 +9,8 @@ export const Team = () => {
     router.push('/team')
   }
   return (
-    <section id="team" className="relative py-24 md:py-40 px-6 md:px-24 border-y border-brand-border/30 z-20">
-      <div className="flex flex-col items-center text-center mb-32 group">
+    <section id="team" className="relative pt-24 pb-12 md:pt-20 md:pb-16 px-6 md:px-24 border-y border-brand-border/30 z-20">
+      <div className="flex flex-col items-center text-center mb-16 group">
         <div className="max-w-4xl">
           <div className="flex items-center justify-center gap-4 mb-8">
             <div className="h-[1px] w-12 bg-brand-border" />

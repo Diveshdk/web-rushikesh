@@ -41,12 +41,12 @@ export const Testimonials = () => {
   if (testimonials.length === 0) return null;
 
   return (
-    <section id="testimonials" className="py-32 md:py-48 bg-brand-background relative overflow-hidden border-t border-brand-border">
+    <section id="testimonials" className="py-16 md:py-24 bg-brand-background relative overflow-hidden border-t border-brand-border">
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-green/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
       
       <div className="px-6 md:px-24">
-        <div className="flex flex-col items-center text-center mb-24">
+        <div className="flex flex-col items-center text-center mb-12">
           <div className="flex items-center gap-4 mb-6">
             <div className="h-[1px] w-12 bg-brand-border" />
             <span className="text-brand-green text-[10px] uppercase tracking-[0.4em] font-bold">Reviews</span>

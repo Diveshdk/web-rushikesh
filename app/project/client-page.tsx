@@ -105,7 +105,7 @@ function ProjectsContent() {
   }
 
   return (
-    <div className="min-h-screen bg-brand-background text-brand-text overflow-x-hidden pt-32 pb-20 px-6 relative">
+    <div className="min-h-screen bg-brand-background text-brand-text overflow-x-hidden pt-32 pb-4 px-6 relative">
       <GridPattern 
         squares={[
           [4, 4], [5, 1], [8, 2], [5, 3], [5, 5],
@@ -119,7 +119,7 @@ function ProjectsContent() {
       />
       <section className="max-w-7xl mx-auto relative z-10">
         <motion.div
-          className="text-center mb-24"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}

@@ -16,14 +16,14 @@ export function Hero() {
         </div>
 
         {/* Tagline Section */}
-        <div className="mt-8 tagline-appear text-center">
+        <div className="mt-4 tagline-appear text-center">
           <p className="text-xl sm:text-3xl tracking-[0.4em] uppercase font-light italic text-gray-400">
             from concept to cornerstone
           </p>
         </div>
 
         {/* Services Section */}
-        <div className="mt-8 services-appear text-center">
+        <div className="mt-4 services-appear text-center">
           <p className="text-sm sm:text-lg tracking-[0.4em] uppercase font-light text-gray-400">
             Architecture &nbsp;|&nbsp; Interior &nbsp;|&nbsp; Urban Design &nbsp;|&nbsp; Landscape
           </p>
@@ -34,7 +34,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 10, duration: 1.5, ease: "easeOut" }}
-          className="mt-12 flex flex-col sm:flex-row gap-4 md:gap-8 pointer-events-auto"
+          className="mt-8 flex flex-col sm:flex-row gap-4 md:gap-8 pointer-events-auto"
         >
           <motion.a
             href="#projects"

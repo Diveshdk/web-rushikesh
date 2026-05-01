@@ -1,3 +1,4 @@
+import { Contact } from "@/components/Contact";
 import ClientContactPage from "./client-page";
 
 export const metadata = {
@@ -6,5 +7,5 @@ export const metadata = {
 };
 
 export default function ContactPage() {
-  return <ClientContactPage />;
-}
+  return <Contact />;
+}
