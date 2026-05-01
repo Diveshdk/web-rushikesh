@@ -48,6 +48,7 @@ const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
@@ -81,12 +82,21 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className={cn(
+      {/* Hover Trigger Zone */}
+      <div 
+        className="fixed top-0 left-0 w-full h-12 z-[101] pointer-events-auto"
+        onMouseEnter={() => setIsHovered(true)}
+      />
+
+      <nav 
+        onMouseLeave={() => setIsHovered(false)}
+        className={cn(
         "fixed top-0 left-0 w-full z-[100] transition-all duration-700 py-4 md:py-6 px-6 md:px-12 flex justify-between items-center",
-        isScrolled
-          ? "bg-brand-background border-b border-brand-border py-3 md:py-4 opacity-100 translate-y-0"
+        (isScrolled || isHovered)
+          ? "bg-brand-background/95 backdrop-blur-md border-b border-brand-border py-3 md:py-4 opacity-100 translate-y-0 pointer-events-auto"
           : "bg-transparent opacity-0 -translate-y-full pointer-events-none"
       )}>
+
         <Link href="/" className="flex items-center gap-1 md:gap-2 cursor-none group">
           <div className="w-fit h-fit flex items-center justify-center">
             <Image src="/logo.png" alt="Logo" width={50} height={50} className='bg-transparent' style={{ height: 'auto' }} />
