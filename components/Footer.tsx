@@ -1,10 +1,13 @@
+'use client';
 import MapComponent from "./MapComponent";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export const Footer = () => {
+  const pathname = usePathname();
   return (
     <>
-      <div className="px-6 md:px-24 mb-12">
+      {pathname !== "/contact" && pathname !== "/youcantseeme" && <div className="px-6 md:px-24 mb-12">
         <div className="border border-brand-border/40 rounded-3xl p-12 md:p-20 text-center relative overflow-hidden">
           <div className="relative z-10">
             <h2 className="text-4xl md:text-6xl font-display font-medium tracking-tighter leading-[1.0] mb-6">
@@ -13,12 +16,12 @@ export const Footer = () => {
             <p className="text-brand-text/30 text-sm font-light max-w-sm mx-auto mb-10">
               Our team responds within 24–48 hours. Share your brief and let's explore what we can create together.
             </p>
-            <a href="/enquiry" className="inline-flex items-center gap-3 bg-brand-green text-brand-background text-xs uppercase tracking-[0.2em] font-bold px-8 py-4 rounded-full hover:bg-brand-green/80 transition-all duration-500">
-              Submit Enquiry →
+            <a href="/contact" className="inline-flex items-center gap-3 bg-brand-green text-brand-background text-xs uppercase tracking-[0.2em] font-bold px-8 py-4 rounded-full hover:bg-brand-green/80 transition-all duration-500">
+              Start Your Project
             </a>
           </div>
         </div>
-      </div>
+      </div>}
       <footer className="relative px-6 md:px-24 py-16 md:py-24 bg-brand-text text-white z-30 overflow-hidden">
         <div className="flex flex-col md:flex-row justify-between items-start gap-16 mb-24 relative z-10">
           <div className="max-w-md">
