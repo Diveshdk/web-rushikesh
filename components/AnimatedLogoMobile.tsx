@@ -20,16 +20,10 @@ const AnimatedLogoMobile = () => {
       <div className="w-36 h-32 relative">
         <svg
           viewBox="-50 0 800 696"
-          className="w-full h-full pencil-filter overflow-visible"
+          className="w-full h-full overflow-visible"
           xmlns="http://www.w3.org/2000/svg"
+          shapeRendering="geometricPrecision"
         >
-          <defs>
-            <filter id="pencil-texture">
-              <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="1" />
-            </filter>
-          </defs>
-
           <g transform="matrix(0.749758, 0, 0, 0.749758, 0, 0.112132)">
             <g className={isActive ? "symbol-mask active" : ""}>
               <g className="drafting-guides">
@@ -43,11 +37,13 @@ const AnimatedLogoMobile = () => {
                   key={`sym-${index}`}
                   d={path.d}
                   fill={path.fill}
-                  stroke={path.stroke}
-                  strokeWidth="1.2"
+                  stroke="#000000"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
                   className={`logo-path ${isActive ? "symbol-path" : ""}`}
                   style={{ 
-                    animationDelay: `${0.5 + (path.rnd * 2.0)}s`
+                    animationDelay: `${0.5 + (path.rnd * 1.5)}s`
                   } as React.CSSProperties}
                 />
               ))}
@@ -56,12 +52,13 @@ const AnimatedLogoMobile = () => {
         </svg>
       </div>
 
-      {/* 2. Text Content (Bottom) - Shimmer Reveal */}
+      {/* 2. Text Content (Bottom) - Reveal */}
       <div className="w-full px-4">
         <svg
           viewBox="500 120 1875 580"
-          className="w-full h-auto pencil-filter overflow-visible"
+          className="w-full h-auto overflow-visible"
           xmlns="http://www.w3.org/2000/svg"
+          shapeRendering="geometricPrecision"
         >
           <g transform="matrix(0.749758, 0, 0, 0.749758, 0, 0.112132)">
             <g>
@@ -70,11 +67,13 @@ const AnimatedLogoMobile = () => {
                   key={`text-${index}`}
                   d={path.d}
                   fill={path.fill}
-                  stroke={path.stroke}
-                  strokeWidth="1.2"
+                  stroke="#000000"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
                   className={`logo-path ${isActive ? "shimmer-path" : ""}`}
                   style={{ 
-                    animationDelay: `${3.0 + (path.rnd * 2.0)}s`
+                    animationDelay: `${2.5 + (path.rnd * 1.5)}s`
                   } as React.CSSProperties}
                 />
               ))}
@@ -84,11 +83,13 @@ const AnimatedLogoMobile = () => {
                   key={`tag-${index}`}
                   d={path.d}
                   fill={path.fill}
-                  stroke={path.stroke}
-                  strokeWidth="0.8"
+                  stroke="#000000"
+                  strokeWidth="1.0"
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
                   className={`logo-path ${isActive ? "shimmer-path" : ""}`}
                   style={{ 
-                    animationDelay: `${5.0 + (path.rnd * 1.0)}s`
+                    animationDelay: `${4.5 + (path.rnd * 1.0)}s`
                   } as React.CSSProperties}
                 />
               ))}

@@ -1,23 +1,28 @@
-/* Pencil Sketch Effect */
-.pencil-filter {
-  filter: url(#pencil-texture);
+/* Bold & Clear Logo Styles */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: transparent;
+  transform-box: fill-box;
 }
 
 @keyframes drafting-draw {
   from { stroke-dashoffset: 1; opacity: 0; }
-  to { stroke-dashoffset: 0; opacity: 0.3; }
+  to { stroke-dashoffset: 0; opacity: 0.15; }
 }
 
 .drafting-line {
   stroke: #1A1A1A;
-  stroke-width: 1;
+  stroke-width: 0.5;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   opacity: 0;
-  animation: drafting-draw 1.5s ease-out forwards;
+  animation: drafting-draw 1.0s ease-out forwards;
 }
 
-/* Clock Reveal for Symbol (Centered Hero Moment) */
+/* Clock Reveal for Symbol */
 @keyframes clock-sweep-symbol {
   0% { --sweep: 0deg; }
   100% { --sweep: 360deg; }
@@ -31,88 +36,63 @@
 
 .symbol-mask {
   mask-image: conic-gradient(from 0deg at 348px 348px, black var(--sweep), transparent var(--sweep));
-  animation: clock-sweep-symbol 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: clock-sweep-symbol 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-@keyframes random-reveal {
+@keyframes bold-reveal {
   0% {
     opacity: 0;
-    stroke-dashoffset: 1;
     transform: scale(0.98);
   }
   100% {
     opacity: 1;
-    stroke-dashoffset: 0;
     transform: scale(1);
   }
 }
 
 .logo-path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
   opacity: 0;
   transform-origin: center;
+  stroke-width: 1.2px;
 }
 
 .symbol-path {
-  /* Symbol uses the clock mask, so paths just need to sketch in */
-  animation: random-reveal 1.0s ease-out forwards;
+  animation: bold-reveal 0.6s ease-out forwards;
 }
 
 .shimmer-path {
-  animation: random-reveal 1.2s ease-out forwards;
-}
-
-
-.logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: transparent;
-  transform-box: fill-box;
+  animation: bold-reveal 0.8s ease-out forwards;
 }
 
 @keyframes layout-slide {
-  0%, 50% { transform: translateX(752px); } /* Centered offset */
-  65%, 100% { transform: translateX(0px); } /* Slide to final position */
+  0%, 50% { transform: translateX(752px); }
+  65%, 100% { transform: translateX(0px); }
 }
 
 .symbol-group {
-  animation: layout-slide 6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation: layout-slide 5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
-/* Tagline Animation */
+
 @keyframes tagline-fade {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .tagline-appear {
   opacity: 0;
-  animation: tagline-fade 1.5s ease-out 6.2s forwards;
+  animation: tagline-fade 1.2s ease-out 5.2s forwards;
 }
 
-/* Layout Shift Animation */
 @keyframes layout-up {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-10vh);
-  }
+  from { transform: translateY(0); }
+  to { transform: translateY(-10vh); }
 }
 
 .layout-shift {
-  animation: layout-up 1.5s cubic-bezier(0.4, 0, 0.2, 1) 6.2s forwards;
+  animation: layout-up 1.2s cubic-bezier(0.4, 0, 0.2, 1) 5.2s forwards;
 }
 
 .services-appear {
   opacity: 0;
-  animation: tagline-fade 1.2s ease-out 7.8s forwards;
+  animation: tagline-fade 1.0s ease-out 6.5s forwards;
 }
