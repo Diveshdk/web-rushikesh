@@ -15,9 +15,9 @@ const AnimatedLogoMobile = () => {
   }, []);
 
   return (
-    <div className={`w-full max-w-sm mx-auto flex flex-col items-center gap-8 transition-opacity duration-1000 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`w-full max-w-xs mx-auto flex flex-col items-center gap-6 transition-opacity duration-1000 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
       {/* 1. Symbol (Top) - Hero Clock Reveal */}
-      <div className="w-48 h-40 relative">
+      <div className="w-36 h-32 relative">
         <svg
           viewBox="-50 0 800 696"
           className="w-full h-full pencil-filter overflow-visible"

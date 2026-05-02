@@ -15,7 +15,7 @@ const AnimatedLogo = () => {
   }, []);
 
   return (
-    <div className={`w-full max-w-5xl mx-auto py-12 transition-opacity duration-1000 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`w-full max-w-3xl mx-auto py-8 transition-opacity duration-1000 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
       <div className="logo-container">
         <svg
           viewBox="0 0 2327.25 696"
