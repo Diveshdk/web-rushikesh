@@ -15,21 +15,15 @@ const AnimatedLogoMobile = () => {
   }, []);
 
   return (
-    <div className={`w-full max-w-xs mx-auto flex flex-col items-center gap-6 transition-opacity duration-1000 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
-      {/* 1. Symbol (Top) - Hero Clock Reveal */}
-      <div className="w-36 h-32 relative">
+    <div className={`w-full max-w-2xl mx-auto flex flex-row items-center justify-center gap-2 px-4 transition-opacity duration-1000 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
+
+      {/* 1. Symbol (Left) - Hero Clock Reveal */}
+      <div className="w-24 h-24 sm:w-36 sm:h-32 relative shrink-0">
         <svg
           viewBox="-50 0 800 696"
-          className="w-full h-full pencil-filter overflow-visible"
+          className="w-full h-full overflow-visible"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <defs>
-            <filter id="pencil-texture">
-              <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="1" />
-            </filter>
-          </defs>
-
           <g transform="matrix(0.749758, 0, 0, 0.749758, 0, 0.112132)">
             <g className={isActive ? "symbol-mask active" : ""}>
               <g className="drafting-guides">
@@ -46,7 +40,7 @@ const AnimatedLogoMobile = () => {
                   stroke={path.stroke}
                   strokeWidth="1.2"
                   className={`logo-path ${isActive ? "symbol-path" : ""}`}
-                  style={{ 
+                  style={{
                     animationDelay: `${0.5 + (path.rnd * 2.0)}s`
                   } as React.CSSProperties}
                 />
@@ -56,42 +50,58 @@ const AnimatedLogoMobile = () => {
         </svg>
       </div>
 
-      {/* 2. Text Content (Bottom) - Shimmer Reveal */}
-      <div className="w-full px-4">
+      {/* 2. Text Content (Right) - Shimmer Reveal */}
+      <div className="flex-1 w-full pt-12">
         <svg
-          viewBox="500 120 1875 580"
-          className="w-full h-auto pencil-filter overflow-visible"
+          // Increased height from 750 to 900 to fit the new text gaps
+          viewBox="500 120 1875 900"
+          className="w-full h-auto overflow-visible"
           xmlns="http://www.w3.org/2000/svg"
         >
           <g transform="matrix(0.749758, 0, 0, 0.749758, 0, 0.112132)">
+            {/* Removed the non-functional flex classes from the SVG group */}
             <g>
-              {logoData.mainText.map((path, index) => (
-                <path
-                  key={`text-${index}`}
-                  d={path.d}
-                  fill={path.fill}
-                  stroke={path.stroke}
-                  strokeWidth="1.2"
-                  className={`logo-path ${isActive ? "shimmer-path" : ""}`}
-                  style={{ 
-                    animationDelay: `${3.0 + (path.rnd * 2.0)}s`
-                  } as React.CSSProperties}
-                />
-              ))}
+              <text
+                x="650"
+                y="300"
+                fontFamily="Arial, sans-serif"
+                fontSize="220"
+                fontWeight="bold"
+                letterSpacing="10"
+                fill="#28917B"
+                className={`uppercase ${isActive ? 'shimmer-path' : 'opacity-0'}`}
+                style={{ animationDelay: '3.5s', strokeDasharray: 'none', strokeDashoffset: 'none' }}
+              >
+                Rushikesh Sutar
+              </text>
 
-              {logoData.tagline.map((path, index) => (
-                <path
-                  key={`tag-${index}`}
-                  d={path.d}
-                  fill={path.fill}
-                  stroke={path.stroke}
-                  strokeWidth="0.8"
-                  className={`logo-path ${isActive ? "shimmer-path" : ""}`}
-                  style={{ 
-                    animationDelay: `${5.0 + (path.rnd * 1.0)}s`
-                  } as React.CSSProperties}
-                />
-              ))}
+              <text
+                x="650"
+                y="580" // Shifted further down to increase gap
+                fontFamily="Arial, sans-serif"
+                fontSize="220"
+                fontWeight="bold"
+                letterSpacing="10"
+                fill="#1A1A1A"
+                className={`uppercase ${isActive ? 'shimmer-path' : 'opacity-0'}`}
+                style={{ animationDelay: '4.2s', strokeDasharray: 'none', strokeDashoffset: 'none' }}
+              >
+                &amp; Associates
+              </text>
+
+              <text
+                x="650"
+                y="800" // Shifted further down to increase gap
+                fontFamily="Arial, sans-serif"
+                fontSize="105"
+                fontWeight="bold"
+                letterSpacing="60"
+                fill="#333333"
+                className={`uppercase ${isActive ? 'shimmer-path' : 'opacity-0'}`}
+                style={{ animationDelay: '4.9s', strokeDasharray: 'none', strokeDashoffset: 'none' }}
+              >
+                Architects
+              </text>
             </g>
           </g>
         </svg>

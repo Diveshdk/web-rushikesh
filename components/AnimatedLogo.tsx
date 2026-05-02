@@ -19,17 +19,9 @@ const AnimatedLogo = () => {
       <div className="logo-container">
         <svg
           viewBox="0 0 2327.25 696"
-          className="w-full h-auto pencil-filter"
+          className="w-full h-auto"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Pencil Texture Filter Definition */}
-          <defs>
-            <filter id="pencil-texture">
-              <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="1" />
-            </filter>
-          </defs>
-
           <g transform="matrix(0.749758, 0, 0, 0.749758, 0, 0.112132)">
             {/* Symbol Group: Symbol + Guides (Slides to left at 3s) */}
             <g className={`symbol-group ${isActive ? "active" : ""}`}>
@@ -51,7 +43,7 @@ const AnimatedLogo = () => {
                     stroke={path.stroke}
                     strokeWidth="1.2"
                     className={`logo-path ${isActive ? "symbol-path" : ""}`}
-                    style={{ 
+                    style={{
                       animationDelay: `${0.5 + (path.rnd * 2.0)}s`
                     } as React.CSSProperties}
                   />
@@ -59,37 +51,47 @@ const AnimatedLogo = () => {
               </g>
             </g>
 
-            {/* 2. Main Logo Rest (3s-6s) - Random Shimmer Reveal */}
+            {/* 2. Main Logo Rest (3s-6s) - Text Reveal */}
             <g>
-              {/* main text (3-5s) */}
-              {logoData.mainText.map((path, index) => (
-                <path
-                  key={`text-${index}`}
-                  d={path.d}
-                  fill={path.fill}
-                  stroke={path.stroke}
-                  strokeWidth="1.2"
-                  className={`logo-path ${isActive ? "shimmer-path" : ""}`}
-                  style={{ 
-                    animationDelay: `${3.0 + (path.rnd * 2.0)}s`
-                  } as React.CSSProperties}
-                />
-              ))}
-
-              {/* tagline (5-6s) */}
-              {logoData.tagline.map((path, index) => (
-                <path
-                  key={`tag-${index}`}
-                  d={path.d}
-                  fill={path.fill}
-                  stroke={path.stroke}
-                  strokeWidth="0.8"
-                  className={`logo-path ${isActive ? "shimmer-path" : ""}`}
-                  style={{ 
-                    animationDelay: `${5.0 + (path.rnd * 1.0)}s`
-                  } as React.CSSProperties}
-                />
-              ))}
+              <text
+                x="950"
+                y="320"
+                fontFamily="Arial, sans-serif"
+                fontSize="170"
+                fontWeight="bold"
+                letterSpacing="10"
+                fill="#28917B"
+                className={`uppercase ${isActive ? 'shimmer-path' : 'opacity-0'}`}
+                style={{ animationDelay: '3.5s', strokeDasharray: 'none', strokeDashoffset: 'none' }}
+              >
+                Rushikesh Sutar
+              </text>
+              <text
+                x="950"
+                y="490"
+                fontFamily="Arial, sans-serif"
+                fontSize="170"
+                fontWeight="bold"
+                letterSpacing="10"
+                fill="#1A1A1A"
+                className={`uppercase ${isActive ? 'shimmer-path' : 'opacity-0'}`}
+                style={{ animationDelay: '4.2s', strokeDasharray: 'none', strokeDashoffset: 'none' }}
+              >
+                &amp; Associates
+              </text>
+              <text
+                x="950"
+                y="620"
+                fontFamily="Arial, sans-serif"
+                fontSize="85"
+                fontWeight="bold"
+                letterSpacing="75"
+                fill="#333333"
+                className={`uppercase ${isActive ? 'shimmer-path' : 'opacity-0'}`}
+                style={{ animationDelay: '4.9s', strokeDasharray: 'none', strokeDashoffset: 'none' }}
+              >
+                Architects
+              </text>
             </g>
           </g>
         </svg>
